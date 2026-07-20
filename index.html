@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>私たちの会社の今 — 第5期のふりかえりと今期やること</title>
+<style>
+  :root{
+    --mincho:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"MS PMincho",Georgia,serif;
+    --paper:#F6F4F0;
+    --surface:#FFFFFF;
+    --band:#EFECE6;
+    --ink:#1A1D24;
+    --ink2:#5A6472;
+    --ink3:#8A93A0;
+    --rule:#DEDAD2;
+    --accent:#33507A;
+    --loss:#A83A30;
+    --loss-bg:#F7EAE8;
+    --loss-line:#E5CBC7;
+    --gain:#2A7358;
+    --gain-bg:#E8F2ED;
+    --gain-line:#C3DED2;
+    --warn:#8F6414;
+    --warn-bg:#F7F0E1;
+    --warn-line:#E4D5B4;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --paper:#15171C; --surface:#1D2027; --band:#1A1D23;
+      --ink:#E9E7E2; --ink2:#9AA3B0; --ink3:#6E7783;
+      --rule:#2E323B;
+      --accent:#8AAAD8;
+      --loss:#E5837A; --loss-bg:#2A1E1C; --loss-line:#4A3330;
+      --gain:#5CBE94; --gain-bg:#152521; --gain-line:#2C4A3E;
+      --warn:#D2A455; --warn-bg:#251E12; --warn-line:#453720;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#15171C; --surface:#1D2027; --band:#1A1D23;
+    --ink:#E9E7E2; --ink2:#9AA3B0; --ink3:#6E7783;
+    --rule:#2E323B;
+    --accent:#8AAAD8;
+    --loss:#E5837A; --loss-bg:#2A1E1C; --loss-line:#4A3330;
+    --gain:#5CBE94; --gain-bg:#152521; --gain-line:#2C4A3E;
+    --warn:#D2A455; --warn-bg:#251E12; --warn-line:#453720;
+  }
+  :root[data-theme="light"]{
+    --paper:#F6F4F0; --surface:#FFFFFF; --band:#EFECE6;
+    --ink:#1A1D24; --ink2:#5A6472; --ink3:#8A93A0;
+    --rule:#DEDAD2;
+    --accent:#33507A;
+    --loss:#A83A30; --loss-bg:#F7EAE8; --loss-line:#E5CBC7;
+    --gain:#2A7358; --gain-bg:#E8F2ED; --gain-line:#C3DED2;
+    --warn:#8F6414; --warn-bg:#F7F0E1; --warn-line:#E4D5B4;
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Hiragino Kaku Gothic ProN","Yu Gothic",YuGothic,Meiryo,"Segoe UI",sans-serif;
+    font-size:16.5px;
+    line-height:2;
+    -webkit-font-smoothing:antialiased;
+  }
+  .doc{max-width:780px;margin:0 auto;padding:0 22px 96px}
+  .sec{padding:52px 0;border-top:1px solid var(--rule)}
+  .sec:first-of-type{border-top:none}
+
+  .eyebrow{
+    font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);font-weight:700;margin-bottom:14px;
+  }
+  h1,h2,h3,h4{font-family:var(--mincho);font-weight:600;text-wrap:balance;margin:0}
+  h2{font-size:1.72rem;line-height:1.5;letter-spacing:.02em;margin-bottom:14px}
+  h3{font-size:1.18rem;line-height:1.6;margin:38px 0 12px;color:var(--ink)}
+  h4{font-size:1.16rem;line-height:1.5}
+  p{margin:0 0 15px}
+  .lead{font-size:1.05rem;color:var(--ink2);margin-bottom:22px}
+  b,strong{font-weight:700;color:var(--ink)}
+  .num{font-variant-numeric:tabular-nums}
+  .fine{display:block;font-size:.8rem;line-height:1.85;color:var(--ink3);margin-top:16px}
+
+  /* ── 表紙 ── */
+  .cover{padding:88px 0 56px;text-align:left}
+  .cover .org{font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);font-weight:700}
+  .cover h1{font-size:2.6rem;line-height:1.42;margin:20px 0 18px;letter-spacing:.03em}
+  .cover .sub{font-size:1.06rem;color:var(--ink2);margin:0}
+  .cover .meta{
+    margin-top:34px;padding-top:20px;border-top:1px solid var(--rule);
+    font-size:.86rem;line-height:1.95;color:var(--ink3);
+  }
+
+  /* ── 結論の一文 ── */
+  .thesis{
+    background:var(--loss-bg);border:1px solid var(--loss-line);
+    padding:30px 32px;margin:24px 0;border-radius:3px;
+  }
+  .thesis .t{font-family:var(--mincho);font-size:1.42rem;line-height:1.72;color:var(--loss);font-weight:600;margin-bottom:14px}
+  .thesis p:last-child{margin-bottom:0;color:var(--ink2)}
+
+  /* ── 数字タイル ── */
+  .figs{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);margin:26px 0;border-radius:3px;overflow:hidden}
+  .fig{background:var(--surface);padding:22px 20px}
+  .fig .l{font-size:.78rem;color:var(--ink3);line-height:1.7;margin-bottom:6px}
+  .fig .v{font-family:var(--mincho);font-size:1.72rem;line-height:1.3;font-variant-numeric:tabular-nums;letter-spacing:.01em}
+  .fig .d{font-size:.76rem;color:var(--ink3);margin-top:6px;line-height:1.7}
+  .v-loss{color:var(--loss)}
+  .v-gain{color:var(--gain)}
+
+  /* ── 注記ブロック ── */
+  .note{border-left:3px solid var(--accent);padding:4px 0 4px 20px;margin:24px 0}
+  .note.is-loss{border-left-color:var(--loss)}
+  .note.is-warn{border-left-color:var(--warn)}
+  .note p:last-child{margin-bottom:0}
+
+  /* ── 100円の流れ ── */
+  .flow{margin:26px 0 0;border-top:1px solid var(--rule)}
+  .fr{display:grid;grid-template-columns:1fr 150px 82px;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid var(--rule)}
+  .fr .lab{font-size:.95rem;font-weight:700;line-height:1.6}
+  .fr .lab em{display:block;font-style:normal;font-size:.76rem;font-weight:400;color:var(--ink3);line-height:1.65}
+  .bar{height:9px;background:var(--band);border-radius:2px;overflow:hidden}
+  .bar i{display:block;height:100%;border-radius:2px}
+  .bar i.b-loss{background:var(--loss)}
+  .bar i.b-warn{background:var(--warn)}
+  .bar i.b-acc{background:var(--accent)}
+  .fr .amt{text-align:right;font-family:var(--mincho);font-size:1.02rem;font-weight:600;font-variant-numeric:tabular-nums}
+  .amt.is-loss{color:var(--loss)}
+  .tally{
+    margin-top:22px;padding:24px;text-align:center;
+    background:var(--loss-bg);border:1px solid var(--loss-line);border-radius:3px;
+  }
+  .tally .q{font-size:.9rem;color:var(--ink2)}
+  .tally .a{font-family:var(--mincho);font-size:2.15rem;font-weight:600;color:var(--loss);font-variant-numeric:tabular-nums;line-height:1.4}
+
+  /* ── 良い点・悪い点 ── */
+  .list{display:flex;flex-direction:column;gap:14px;margin-top:22px}
+  .entry{padding:20px 24px;border-radius:3px;border:1px solid}
+  .entry .h{font-family:var(--mincho);font-size:1.08rem;font-weight:600;line-height:1.6;margin-bottom:7px;display:flex;gap:12px;align-items:baseline}
+  .entry .h .k{flex:none;font-size:.82rem;font-weight:700;font-family:inherit;opacity:.85;font-variant-numeric:tabular-nums}
+  .entry p{margin:0;font-size:.95rem;color:var(--ink2)}
+  .entry.good{background:var(--gain-bg);border-color:var(--gain-line)}
+  .entry.good .h{color:var(--gain)}
+  .entry.bad{background:var(--loss-bg);border-color:var(--loss-line)}
+  .entry.bad .h{color:var(--loss)}
+
+  /* ── 表 ── */
+  .tw{overflow-x:auto;margin:22px 0}
+  table{width:100%;border-collapse:collapse;font-size:.94rem;min-width:440px}
+  th{
+    text-align:left;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--ink3);font-weight:700;padding:0 14px 11px;border-bottom:1px solid var(--rule);
+  }
+  td{padding:14px;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.85}
+  td.n{text-align:right;font-family:var(--mincho);font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+  tr.total td{background:var(--gain-bg);color:var(--gain);font-weight:700;border-bottom:none}
+  tr.total td.n{color:var(--gain);font-size:1.08rem}
+
+  /* ── 3本柱 ── */
+  .pillar{margin-top:30px;padding-top:26px;border-top:2px solid var(--ink)}
+  .pillar .ph{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:6px}
+  .pillar .rank{
+    font-family:var(--mincho);font-size:.82rem;font-weight:700;letter-spacing:.14em;
+    color:var(--accent);flex:none;
+  }
+  .pillar .when{
+    margin-left:auto;font-size:.72rem;font-weight:700;letter-spacing:.08em;
+    padding:3px 12px;border-radius:2px;flex:none;
+  }
+  .w1{background:var(--loss-bg);color:var(--loss);border:1px solid var(--loss-line)}
+  .w2{background:var(--warn-bg);color:var(--warn);border:1px solid var(--warn-line)}
+  .w3{background:var(--gain-bg);color:var(--gain);border:1px solid var(--gain-line)}
+  .pillar .why{font-size:.9rem;color:var(--ink3);margin:0 0 14px}
+  ul{margin:0 0 0 1.15em;padding:0}
+  li{margin:9px 0;line-height:1.9}
+  li::marker{color:var(--ink3)}
+
+  /* ── 役割 ── */
+  .roles{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
+  .role{background:var(--surface);border:1px solid var(--rule);border-radius:3px;padding:24px}
+  .role .rh{font-family:var(--mincho);font-size:1.06rem;font-weight:600;margin-bottom:12px}
+  .role ul{font-size:.94rem}
+  .role .tail{margin:14px 0 0;font-size:.84rem;color:var(--ink3);line-height:1.8}
+
+  /* ── 結び ── */
+  .close{background:var(--surface);border:1px solid var(--rule);border-radius:3px;padding:44px 40px;margin-top:52px}
+  .close .big{
+    font-family:var(--mincho);font-size:1.42rem;line-height:1.8;font-weight:600;
+    color:var(--ink);margin:22px 0;padding-left:20px;border-left:3px solid var(--accent);
+  }
+  .close p{color:var(--ink2)}
+  .close p:last-child{margin-bottom:0}
+
+  .colophon{
+    margin-top:44px;padding-top:22px;border-top:1px solid var(--rule);
+    font-size:.78rem;line-height:1.95;color:var(--ink3);
+  }
+
+  @media (max-width:680px){
+    body{font-size:15.5px;line-height:1.92}
+    .doc{padding:0 18px 72px}
+    .sec{padding:40px 0}
+    .cover{padding:56px 0 40px}
+    .cover h1{font-size:1.86rem}
+    h2{font-size:1.42rem}
+    .figs{grid-template-columns:1fr}
+    .roles{grid-template-columns:1fr}
+    .fr{grid-template-columns:1fr 76px;gap:12px}
+    .fr .bar{display:none}
+    .thesis,.close{padding:26px 22px}
+    .thesis .t,.close .big{font-size:1.18rem}
+    .tally .a{font-size:1.8rem}
+  }
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <header class="cover">
+    <div class="org">合同会社 Nadymade ・ 共同経営者へ</div>
+    <h1>私たちの会社の今</h1>
+    <p class="sub">第5期のふりかえりと、今期やること</p>
+    <div class="meta">
+      2025年5月1日 〜 2026年4月30日 の決算にもとづく社内資料<br>
+      できるだけ専門用語を使わず、良いことも悪いことも正直に書きました。
+    </div>
+  </header>
+
+  <!-- 結論 -->
+  <section class="sec">
+    <div class="eyebrow">まず結論から</div>
+    <h2>いちばん大事なこと</h2>
+
+    <div class="thesis">
+      <div class="t">たくさん売れた。<br>でも「売る仕事」そのものでは、1円も稼げていない。</div>
+      <p>いま出ている黒字は、<b>国からの税金の返金</b>と<b>円安</b>という、<b>商売の外側</b>から来ています。これが第5期の、いちばん正直な姿です。</p>
+    </div>
+
+    <div class="figs">
+      <div class="fig">
+        <div class="l">売った金額</div>
+        <div class="v num">2,907万円</div>
+        <div class="d">前の年から ＋46%</div>
+      </div>
+      <div class="fig">
+        <div class="l">商売そのものの成績</div>
+        <div class="v num v-loss">−20万円</div>
+        <div class="d">赤字（本業）</div>
+      </div>
+      <div class="fig">
+        <div class="l">最終的に残ったお金</div>
+        <div class="v num v-gain">＋112万円</div>
+        <div class="d">返金と円安のおかげ</div>
+      </div>
+    </div>
+
+    <div class="note">
+      <p><b>言いかえると：</b>1年間フルで働いて、商売では20万円のマイナス。そこに国から返ってきた112万円と、円安のボーナス16万円が乗って、なんとか112万円の黒字に「見えている」状態です。</p>
+      <p><b>これは悪いニュースであると同時に、いいニュースでもあります。</b>なぜなら、<b>商売の赤字さえ直せば、返金の112万円がまるごと利益として残る</b>から。あと一歩のところに来ています。</p>
+    </div>
+  </section>
+
+  <!-- 100円の行方 -->
+  <section class="sec">
+    <div class="eyebrow">お金の流れ</div>
+    <h2>売上100円は、どこへ消えているのか</h2>
+    <p class="lead">むずかしい表は置いておいて、<b>「100円売れたら、手元に何円残るか」</b>だけ見てください。これが今の会社のすべてです。</p>
+
+    <div class="flow">
+      <div class="fr">
+        <div class="lab">100円 売れた<em>お客さまが払った金額</em></div>
+        <div class="bar"><i class="b-acc" style="width:100%"></i></div>
+        <div class="amt num">100.0円</div>
+      </div>
+      <div class="fr">
+        <div class="lab">− 返品で返す<em>売れたのに戻ってくる分</em></div>
+        <div class="bar"><i class="b-loss" style="width:11.3%"></i></div>
+        <div class="amt num is-loss">−11.3円</div>
+      </div>
+      <div class="fr">
+        <div class="lab">− 商品の仕入れ<em>カメラを買った代金</em></div>
+        <div class="bar"><i class="b-warn" style="width:56.8%"></i></div>
+        <div class="amt num is-loss">−56.8円</div>
+      </div>
+      <div class="fr">
+        <div class="lab">− 経費<em>手数料・送料・広告など</em></div>
+        <div class="bar"><i class="b-warn" style="width:32.6%"></i></div>
+        <div class="amt num is-loss">−32.6円</div>
+      </div>
+    </div>
+
+    <div class="tally">
+      <div class="q">100円売って、手元に残るのは</div>
+      <div class="a num">−0.7円</div>
+    </div>
+
+    <h3>「経費32.6円」の中身 — ここが勝負どころ</h3>
+    <div class="flow">
+      <div class="fr">
+        <div class="lab">eBayに払う手数料<em>売り場の「場所代」</em></div>
+        <div class="bar"><i class="b-loss" style="width:36%"></i></div>
+        <div class="amt num">11.7円</div>
+      </div>
+      <div class="fr">
+        <div class="lab">送料<em>お客さまへ送る費用</em></div>
+        <div class="bar"><i class="b-loss" style="width:27%"></i></div>
+        <div class="amt num">8.7円</div>
+      </div>
+      <div class="fr">
+        <div class="lab">広告費<em>eBay内の宣伝</em></div>
+        <div class="bar"><i class="b-warn" style="width:14%"></i></div>
+        <div class="amt num">4.5円</div>
+      </div>
+      <div class="fr">
+        <div class="lab">私たちの役員報酬<em>2人の給料</em></div>
+        <div class="bar"><i class="b-warn" style="width:11%"></i></div>
+        <div class="amt num">3.5円</div>
+      </div>
+      <div class="fr">
+        <div class="lab">研修費<em>Shopifyの学習など</em></div>
+        <div class="bar"><i class="b-warn" style="width:7%"></i></div>
+        <div class="amt num">2.4円</div>
+      </div>
+      <div class="fr">
+        <div class="lab">その他<em>通信費・消耗品など</em></div>
+        <div class="bar"><i class="b-warn" style="width:6%"></i></div>
+        <div class="amt num">1.8円</div>
+      </div>
+    </div>
+
+    <div class="note is-loss">
+      <p><b>ここを見てください。</b>「返品 11.3円 ＋ eBay手数料 11.7円 ＋ 送料 8.7円」だけで、100円のうち<b>約32円</b>が消えています。つまり<b>売上の3分の1近くが、この3つに吸い取られている</b>。ここを削るのが今期の最大のテーマです。</p>
+    </div>
+
+    <span class="fine">※ この「100円あたり」の数字は、わかりやすさのために売上高（2,907万円）を100円に置きかえたものです。決算書の正式なパーセンテージ（返品を引いた後の金額を基準にしたもの）とは分母が違うため、数字が少しずれます。方向性を理解するためのものとお考えください。</span>
+  </section>
+
+  <!-- 良い点 -->
+  <section class="sec">
+    <div class="eyebrow">良いところ</div>
+    <h2>正直に言って、強いところ</h2>
+    <p class="lead">悪いところばかりではありません。<b>むしろ土台はかなり良い</b>ので、ここは自信を持っていい部分です。</p>
+
+    <div class="list">
+      <div class="entry good">
+        <div class="h"><span class="k">◎</span><span>売る力・仕入れる力は本物</span></div>
+        <p>売上が1年で <b>1,991万円 → 2,907万円（＋46%）</b>。市場に選ばれている証拠です。「売れない」という悩みは私たちにはありません。ここは素直にすごいことです。</p>
+      </div>
+      <div class="entry good">
+        <div class="h"><span class="k">◎</span><span>毎年もらえる「返金」という強み</span></div>
+        <p>海外に売るとき消費税はもらえませんが、日本で仕入れるときには消費税を払っています。その<b>払いすぎた分が国から返ってくる</b>（第5期は約112万円）。輸出をやっている会社だけの構造的な強みで、<b>今後も毎年続きます</b>。会社の隠れた資産です。</p>
+      </div>
+      <div class="entry good">
+        <div class="h"><span class="k">◎</span><span>商品1個あたりは、ちゃんと儲かっている</span></div>
+        <p>仕入れ値と売値の差は <b>36%</b> 出ています。つまり<b>ビジネスのやり方自体は間違っていない</b>。「安く買って高く売る」はできている。問題はそのあとの経費で溶けていることであって、商売の根っこは健全です。</p>
+      </div>
+      <div class="entry good">
+        <div class="h"><span class="k">◎</span><span>赤字体質から抜け出しつつある</span></div>
+        <p>創業からの積み重なった赤字で会社の体力はまだマイナス（−73万円）ですが、<b>今期の黒字112万円で確実に改善しています</b>。あと1〜2年黒字を続ければプラスに戻せる射程です。</p>
+      </div>
+      <div class="entry good">
+        <div class="h"><span class="k">◎</span><span>仕組み（システム）ができている</span></div>
+        <p>仕入・検品・発送・価格調整・売上を管理するシステムが自社にあります。<b>「勘」ではなく「数字」で改善できる体制</b>がすでにある。同じ規模の会社ではめずらしく、今期の改善を実行できる大きな武器です。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 悪い点 -->
+  <section class="sec">
+    <div class="eyebrow">悪いところ・忖度なし</div>
+    <h2>正直に言って、まずいところ</h2>
+    <p class="lead">ここは遠慮なく書きます。<b>見ないふりをすると、来期以降に効いてくる</b>ものばかりです。深刻な順に並べました。</p>
+
+    <div class="list">
+      <div class="entry bad">
+        <div class="h"><span class="k">1</span><span>本業が赤字（−20万円）— 最大の問題</span></div>
+        <p>これがすべての結論です。<b>売る仕事で稼げていない</b>。いまは返金と円安が隠してくれていますが、この2つは私たちの努力ではコントロールできません。<b>ここを直さない限り、会社は本当の意味で儲かっていない。</b></p>
+      </div>
+      <div class="entry bad">
+        <div class="h"><span class="k">2</span><span>返品が多すぎる（11.3%＝330万円）</span></div>
+        <p><b>100個売ったら11個返ってくる</b>計算です。金額にして330万円。返品されると売上が消えるだけでなく、<b>往復の送料・手数料も戻ってきません</b>ので、ダメージは金額以上です。しかもこれまで<b>「なぜ返品されたのか」を記録していなかった</b>ため、原因がわかっていませんでした。</p>
+      </div>
+      <div class="entry bad">
+        <div class="h"><span class="k">3</span><span>eBayに依存しすぎている</span></div>
+        <p>手数料と送料だけで<b>売上の約2割</b>をeBayに払っています。さらに怖いのは、<b>もしアカウントが止まったら、売上がその日にゼロになる</b>こと。実際に起きている業者は多いです。いまは「大家さんが1人しかいない店子」の状態です。</p>
+      </div>
+      <div class="entry bad">
+        <div class="h"><span class="k">4</span><span>お金のやりくりがギリギリ</span></div>
+        <p>1年以内に払うお金が <b>655万円</b>、対して1年以内に用意できるお金が <b>582万円</b>。<b>73万円足りていません</b>。カードの引き落としと返金の入金のタイミングがずれると、<b>黒字なのにお金が払えない</b>という事態が起こりえます。手元の現金は179万円しかありません。</p>
+      </div>
+      <div class="entry bad">
+        <div class="h"><span class="k">5</span><span>今期から税金が発生する</span></div>
+        <p>これまでは過去の赤字のおかげで法人税がゼロでした。しかしその残りが<b>約99万円しかなく、今期で使い切ります</b>。つまり<b>今期からは黒字を出すと法人税を払う</b>段階に入ります。納税用のお金を別に確保しておかないと、上の「4」と重なって資金が一気に苦しくなります。</p>
+      </div>
+      <div class="entry bad">
+        <div class="h"><span class="k">6</span><span>広告132万円の効果が、わかっていない</span></div>
+        <p>eBay内の広告に年間132万円を使っていますが、<b>「その広告のおかげで売れたのか」を検証していません</b>。効いていれば投資、効いていなければただの垂れ流しです。いまは判断材料がない状態です。</p>
+      </div>
+      <div class="entry bad">
+        <div class="h"><span class="k">7</span><span>黒字の中身に「円安のおかげ」が入っている</span></div>
+        <p>利益のうち16万円は円安によるものです。<b>円高に振れれば、これはマイナスに変わります</b>。実力ではないお金なので、これをアテにした経営判断はしないほうがいいです。</p>
+      </div>
+    </div>
+
+    <div class="note is-warn">
+      <p><b>まとめると：</b>「売る力はあるが、稼ぐ力がまだない。しかも守り（資金）が薄い」。これが第5期の会社の姿です。<b>成長期の会社によくある、いちばん危ない踊り場</b>にいます。</p>
+    </div>
+  </section>
+
+  <!-- なぜ返品が最優先か -->
+  <section class="sec">
+    <div class="eyebrow">戦略の考えかた</div>
+    <h2>なぜ「返品を減らす」が最優先なのか</h2>
+    <p class="lead">やれることはたくさんありますが、<b>全部やろうとすると全部中途半端になります</b>。だから優先順位をはっきりさせます。</p>
+
+    <p>返品を減らすことが最優先である理由は、シンプルに<b>「いちばん効くから」</b>です。</p>
+
+    <div class="note">
+      <p style="font-family:var(--mincho);font-size:1.16rem;font-weight:600;line-height:1.7;color:var(--ink)">返品率を <span class="num">1%</span> 減らすと、利益が <span class="num">約26万円</span> 増えます。</p>
+      <p>いまの返品率は11.3%。これを<b>8%まで下げるだけで、約86万円の利益改善</b>。本業の赤字20万円は、これだけでひっくり返ります。</p>
+    </div>
+
+    <p>しかも返品対策は、<b>売上を増やさなくてもできる</b>のがポイントです。新しくお客さんを増やすのは大変ですが、<b>すでに売れたものが戻ってこないようにするだけ</b>なら、明日からできます。追加のお金もほとんどかかりません。</p>
+
+    <h3>そのために、もう手は打ちました</h3>
+    <p>これまで「なぜ返品されたか」を記録していませんでした。原因がわからなければ対策も打てません。そこで<b>システムに「返品理由を記録する機能」を先日入れました</b>。今後の返品はすべて、下の6種類に分類されて貯まっていきます。</p>
+
+    <div class="tw">
+      <table>
+        <thead>
+          <tr><th style="width:36%">返品の理由</th><th>つまり、何が悪いのか</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><b>説明と違った</b></td><td>商品説明・写真が実物を正しく伝えられていない</td></tr>
+          <tr><td><b>輸送中に壊れた</b></td><td>梱包が弱い</td></tr>
+          <tr><td><b>届いたら動かない</b></td><td>検品で見落としている</td></tr>
+          <tr><td><b>サイズ・規格違い</b></td><td>商品ページの仕様情報が足りない</td></tr>
+          <tr><td><b>お客さまの都合</b></td><td>これは防ぎようがない（仕方ない）</td></tr>
+          <tr><td><b>その他</b></td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>2〜3ヶ月データを貯めれば、<b>「うちの返品のいちばんの原因はこれだ」</b>がはっきり数字で出ます。そこを潰しにいきます。<b>勘ではなく、事実で戦う</b>ということです。</p>
+  </section>
+
+  <!-- 今期の目標 -->
+  <section class="sec">
+    <div class="eyebrow">今期のゴール</div>
+    <h2>今期、目指す数字</h2>
+    <p class="lead">売上を増やす目標ではありません。<b>いまの売上のままで、利益を出せる体質に変える</b>のが今期のテーマです。</p>
+
+    <div class="tw">
+      <table>
+        <thead>
+          <tr><th style="width:26%">やること</th><th>目標</th><th style="width:24%;text-align:right">利益の改善</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><b>返品を減らす</b></td><td>返品率 11.3% → <b>8%</b></td><td class="n" style="color:var(--gain)">約 ＋86万円</td></tr>
+          <tr><td><b>広告の見直し</b></td><td>効いていない広告を止める<br>132万円 → 100万円</td><td class="n" style="color:var(--gain)">約 ＋32万円</td></tr>
+          <tr><td><b>送料を安くする</b></td><td>いちばん安い配送方法へ切り替え<br>（いまより約7%減）</td><td class="n" style="color:var(--gain)">約 ＋17万円</td></tr>
+          <tr class="total"><td colspan="2">合計の改善</td><td class="n">約 ＋135万円</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>そうすると、どうなるか</h3>
+    <div class="figs">
+      <div class="fig">
+        <div class="l">いまの本業</div>
+        <div class="v num v-loss">−20万円</div>
+        <div class="d">赤字</div>
+      </div>
+      <div class="fig">
+        <div class="l">目標達成後の本業</div>
+        <div class="v num v-gain">＋115万円</div>
+        <div class="d">黒字に転換</div>
+      </div>
+      <div class="fig">
+        <div class="l">返金を足すと</div>
+        <div class="v num v-gain">約 227万円</div>
+        <div class="d">円安ゼロでもこの水準</div>
+      </div>
+    </div>
+
+    <div class="note">
+      <p><b>ここが今期のいちばん大事なポイントです。</b>本業さえ黒字になれば、<b>毎年の返金112万円がまるごと利益の上乗せになります</b>。売上を無理に増やさなくても、一気に「筋肉質な会社」に変われる。<b>これが今期の戦略のすべてです。</b></p>
+    </div>
+
+    <span class="fine">※ 上記の改善額は「返品率1%＝約26万円」という第5期の実績にもとづく試算です。売上規模が変われば金額も変わります。約束された数字ではなく、目指す方向としての目標値です。</span>
+  </section>
+
+  <!-- 3つの柱 -->
+  <section class="sec">
+    <div class="eyebrow">今期の戦略</div>
+    <h2>やることは、3つだけ</h2>
+    <p class="lead">あれこれ手を広げません。<b>この3つに集中します。</b>取り組む順番も、この番号のとおりです。</p>
+
+    <div class="pillar">
+      <div class="ph">
+        <span class="rank">その一</span>
+        <h4>返品を減らす</h4>
+        <span class="when w1">最優先・いますぐ</span>
+      </div>
+      <p class="why">いちばんお金になって、いちばんすぐできるから</p>
+      <ul>
+        <li><b>返品理由を記録し続ける</b>（システム導入済み・今日から運用）。まず2〜3ヶ月データを貯める</li>
+        <li><b>商品説明と写真を正直にする</b>。キズ・カビ・曇りを隠さず、むしろはっきり書く・写す。「思ったのと違う」返品はこれで確実に減ります</li>
+        <li><b>梱包を強くする・やり方を統一する</b>。「誰が梱包しても同じ品質」にする</li>
+        <li><b>検品の見落としをなくす</b>。返品理由と検品記録を突き合わせて、見落としやすいポイントを洗い出す</li>
+      </ul>
+    </div>
+
+    <div class="pillar">
+      <div class="ph">
+        <span class="rank">その二</span>
+        <h4>手数料と送料を減らす</h4>
+        <span class="when w2">重要・3ヶ月以内</span>
+      </div>
+      <p class="why">売上の2割を持っていかれている領域。数%削るだけで黒字になるから</p>
+      <ul>
+        <li><b>広告の棚卸し</b>。商品ごとに「広告費に対していくら売れたか」を出し、<b>元が取れていない広告は止める</b>。年132万円の使い道を見直す</li>
+        <li><b>配送を最安ルートにする</b>。重さ・送り先の国ごとに、いちばん安い業者を選ぶ仕組みにする（いまは手作業で、必ずしも最安ではない）</li>
+        <li><b>安い商品を減らし、高くて利益の出る商品を増やす</b>。単価が上がれば、手数料の重さも相対的に軽くなる</li>
+        <li><b>赤字になっている商品の出品をやめる</b>。売れても損する商品は、売らないほうがいい</li>
+      </ul>
+    </div>
+
+    <div class="pillar">
+      <div class="ph">
+        <span class="rank">その三</span>
+        <h4>eBay以外の売り場をつくる（Shopify）</h4>
+        <span class="when w3">中期・半年〜</span>
+      </div>
+      <p class="why">手数料を根本から減らし、「eBayが止まったら終わり」の状態から抜けるため</p>
+      <ul>
+        <li>Shopifyとは<b>自分のお店を持つこと</b>。eBayに払っている場所代がまるごと浮くので、同じ値段で売っても利益が増えます</li>
+        <li>研修（JES）で学んだ内容そのもの。<b>方向性は戦略的に正しい</b>ので、今期に着手します</li>
+        <li>いきなり全部を移すのではなく、<b>eBayで売れ筋が確定している型番だけ</b>から小さく始める</li>
+        <li>写真・英語の商品説明・商品情報は<b>すでに手元のシステムにあるので流用できます</b>。ゼロから作る必要はありません</li>
+      </ul>
+      <div class="note is-warn">
+        <p><b>注意：</b>これは時間もお金もかかる中期の話です。<b>「その一」「その二」を放り出してこちらに飛びつくと、今期の黒字化に間に合いません。</b>あくまで「1と2をやりながら、並行して準備する」順番を守ります。</p>
+      </div>
+    </div>
+
+    <h3>そして、あえて「やらないこと」</h3>
+    <p>集中するために、今期はこれらを追いません。</p>
+    <ul>
+      <li><b>無理な売上拡大</b> — 売上を増やしても、いまの体質のままでは赤字が増えるだけです</li>
+      <li><b>新しいジャンルへの手出し</b> — ヴィンテージカメラで培った目利きが効かなくなります</li>
+      <li><b>大きな設備投資・在庫の積み増し</b> — 手元の現金が薄いので、いまは守りを固める時期です</li>
+    </ul>
+  </section>
+
+  <!-- 守り -->
+  <section class="sec">
+    <div class="eyebrow">守りの話</div>
+    <h2>お金のやりくりと、税金の準備</h2>
+    <p class="lead">攻めの3つと同じくらい大事なのが、<b>「お金が尽きないようにする」</b>ことです。利益が出ていても現金がなければ会社は止まります。</p>
+
+    <div class="figs">
+      <div class="fig">
+        <div class="l">手元の現金</div>
+        <div class="v num">179万円</div>
+        <div class="d">薄い</div>
+      </div>
+      <div class="fig">
+        <div class="l">1年以内に払うお金</div>
+        <div class="v num v-loss">655万円</div>
+        <div class="d">カード・仕入代金など</div>
+      </div>
+      <div class="fig">
+        <div class="l">用意できるお金</div>
+        <div class="v num">582万円</div>
+        <div class="d">73万円 足りない</div>
+      </div>
+    </div>
+
+    <h3>今期やること</h3>
+    <ul>
+      <li><b>月に1回、お金の出入り表をつける</b>。「今月いくら入って、いくら出るか」を毎月2人で確認する。これをやるだけで資金ショートはほぼ防げます</li>
+      <li><b>納税用のお金を別口座に分けておく</b>。今期から法人税が発生します。使ってしまう前に避けておくのが鉄則です</li>
+      <li><b>返金の入金時期を把握しておく</b>。年100〜170万円が入ってくるタイミングを、支払いのスケジュールと合わせて管理する</li>
+      <li><b>ドルを円に換えるルールを決める</b>。「なんとなく」ではなく「このレートになったら、この割合を換える」と決めておく。<b>為替はボーナスであって実力ではない</b>という前提で</li>
+      <li><b>役員報酬の見直し</b>。税金が発生する段階に入るので、税理士さんと相談して2人の給料の設定を最適化する</li>
+    </ul>
+
+    <div class="note is-warn">
+      <p><b>いちばん避けたいこと：</b>「利益は出ているのに、支払うお金がない」という状態です。<b>1年以内に払うお金より、用意できるお金のほうが多い状態</b>にすること。これを今期の財務目標にします。</p>
+    </div>
+  </section>
+
+  <!-- 役割分担 -->
+  <section class="sec">
+    <div class="eyebrow">2人でどう進めるか</div>
+    <h2>役割分担の案</h2>
+    <p class="lead">数字が苦手でも心配はいりません。<b>今期の戦略でいちばん効くところは、数字と関係のない部分</b>です。むしろ現場の丁寧さが、そのままお金になります。</p>
+
+    <div class="roles">
+      <div class="role">
+        <div class="rh">現場・品質のパート</div>
+        <ul>
+          <li>返品理由を<b>毎回もれなく記録する</b>（システムで選ぶだけ）</li>
+          <li>商品説明・写真で<b>キズや不具合を隠さず伝える</b></li>
+          <li><b>梱包のやり方を統一</b>し、手順として決める</li>
+          <li>検品で「あやしい」と思ったら遠慮なく止める</li>
+        </ul>
+        <p class="tail">これがそのまま「その一：返品を減らす」の実行です。<b>今期の利益改善の6割は、ここから出ます。</b></p>
+      </div>
+      <div class="role">
+        <div class="rh">数字・システムのパート</div>
+        <ul>
+          <li>返品データの<b>集計と原因の分析</b></li>
+          <li><b>広告の費用対効果</b>を出して、止める判断をする</li>
+          <li><b>配送の最安ルート</b>を仕組み化する</li>
+          <li>Shopifyの準備、毎月のお金の管理</li>
+        </ul>
+        <p class="tail">分析と仕組みづくり。ここは追って結果を共有します。</p>
+      </div>
+    </div>
+
+    <div class="note">
+      <p><b>2人でやること：</b>月に1回、<b>30分だけ</b>「今月の数字を見る会」をする。見るのは<b>3つの数字だけ</b>で十分です — <b>①返品率 ②本業の利益 ③手元の現金</b>。この3つが良くなっていれば、会社は正しい方向に進んでいます。</p>
+    </div>
+  </section>
+
+  <!-- 結び -->
+  <section class="close">
+    <div class="eyebrow">最後に</div>
+    <h2>まとめ</h2>
+    <p>第5期は、<b>売上が46%伸びた良い年</b>でした。同時に、<b>本業では赤字だった年</b>でもありました。この2つは、どちらも事実です。</p>
+    <div class="big">私たちに足りないのは「売る力」ではありません。<br>足りないのは「売ったあと、手元にお金を残す力」です。</div>
+    <p>そして、それは<b>今期の努力で十分に届く距離</b>にあります。必要なのは大きな挑戦ではなく、<b>返品を減らし、ムダな手数料を削る</b>という、地味で確実な作業です。</p>
+    <p>本業さえ黒字にできれば、毎年の返金がそのまま積み上がり、会社は一気に強くなります。<b>成長の踊り場を、収益化の転換点にする。</b>それが今期のテーマです。</p>
+  </section>
+
+  <div class="colophon">
+    合同会社Nadymade ／ 第5期（2025年5月1日〜2026年4月30日）決算データにもとづく社内資料。<br>
+    金額はわかりやすさのため万円単位に丸めています。正式な数値は決算書および「経営分析プレゼン_第5期」をご確認ください。<br>
+    税務上の最終判断は税理士の確認事項に従います。
+  </div>
+
+</div>
+</body>
+</html>
