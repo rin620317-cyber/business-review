@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>経営会議 進行スクリプト（手元用）</title>
+<style>
+  :root{
+    --mincho:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"MS PMincho",Georgia,serif;
+    --paper:#F6F4EF; --surface:#FFFFFF; --band:#EDE9E1;
+    --ink:#1E2128; --ink2:#5A6472; --ink3:#8A93A0; --rule:#DED9D0;
+    --accent:#4A6B54; --accent2:#3B5B7A;
+    --say-bg:#EEF3EE; --say-line:#CADBCC;
+    --show-bg:#EAF0F5; --show-line:#C4D6E4;
+    --q-bg:#F6EEDD; --q-line:#E6D3AC; --q-ink:#8A6212;
+    --dec-bg:#F3ECE9; --dec-line:#E0CFC8;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --paper:#14161B; --surface:#1C1F26; --band:#191C22;
+      --ink:#E9E7E2; --ink2:#9BA4B2; --ink3:#6C7480; --rule:#2C313A;
+      --accent:#7FB891; --accent2:#8FB0D6;
+      --say-bg:#152219; --say-line:#2C4636;
+      --show-bg:#141F29; --show-line:#2A3E4C;
+      --q-bg:#241D12; --q-line:#443720; --q-ink:#D3A65A;
+      --dec-bg:#241A16; --dec-line:#43302A;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#14161B; --surface:#1C1F26; --band:#191C22;
+    --ink:#E9E7E2; --ink2:#9BA4B2; --ink3:#6C7480; --rule:#2C313A;
+    --accent:#7FB891; --accent2:#8FB0D6; --say-bg:#152219; --say-line:#2C4636;
+    --show-bg:#141F29; --show-line:#2A3E4C; --q-bg:#241D12; --q-line:#443720;
+    --q-ink:#D3A65A; --dec-bg:#241A16; --dec-line:#43302A;
+  }
+  :root[data-theme="light"]{
+    --paper:#F6F4EF; --surface:#FFFFFF; --band:#EDE9E1;
+    --ink:#1E2128; --ink2:#5A6472; --ink3:#8A93A0; --rule:#DED9D0;
+    --accent:#4A6B54; --accent2:#3B5B7A; --say-bg:#EEF3EE; --say-line:#CADBCC;
+    --show-bg:#EAF0F5; --show-line:#C4D6E4; --q-bg:#F6EEDD; --q-line:#E6D3AC;
+    --q-ink:#8A6212; --dec-bg:#F3ECE9; --dec-line:#E0CFC8;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Hiragino Kaku Gothic ProN","Yu Gothic",YuGothic,Meiryo,"Segoe UI",sans-serif;
+    font-size:17px;line-height:1.95;-webkit-font-smoothing:antialiased}
+  .doc{max-width:720px;margin:0 auto;padding:0 20px 90px}
+  h1,h2,h3{font-family:var(--mincho);font-weight:600;text-wrap:balance;margin:0}
+  .cover{padding:56px 0 30px;border-bottom:2px solid var(--rule)}
+  .cover .k{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);font-weight:700}
+  .cover h1{font-size:1.9rem;margin:12px 0 10px;line-height:1.45}
+  .cover p{margin:0;color:var(--ink2);font-size:.95rem}
+
+  .step{padding:30px 0 6px;border-top:1px solid var(--rule)}
+  .step:first-of-type{border-top:none}
+  .step .no{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;
+    background:var(--accent);color:#fff;font-family:var(--mincho);font-weight:700;font-size:1rem;flex:none;margin-right:10px}
+  .step h2{display:flex;align-items:center;font-size:1.32rem;margin-bottom:6px}
+  .step .goal{font-size:.85rem;color:var(--ink3);margin:0 0 14px 40px}
+
+  .say{background:var(--say-bg);border:1px solid var(--say-line);border-radius:8px;padding:15px 18px;margin:12px 0}
+  .say::before{content:"🗣 こう話す";display:block;font-size:.7rem;letter-spacing:.08em;color:var(--accent);font-weight:800;margin-bottom:7px}
+  .say p{margin:0 0 10px}.say p:last-child{margin-bottom:0}
+  .say .q{font-family:var(--mincho);font-size:1.08rem;color:var(--ink);font-weight:600;line-height:1.7}
+
+  .show{background:var(--show-bg);border:1px solid var(--show-line);border-radius:8px;padding:12px 16px;margin:12px 0;font-size:.92rem}
+  .show::before{content:"📱 画面で見せる";display:block;font-size:.7rem;letter-spacing:.08em;color:var(--accent2);font-weight:800;margin-bottom:5px}
+  .show a{color:var(--accent2);word-break:break-all}
+
+  .qa{background:var(--q-bg);border:1px solid var(--q-line);border-radius:8px;padding:12px 16px;margin:12px 0;font-size:.92rem}
+  .qa::before{content:"💭 聞かれたら";display:block;font-size:.7rem;letter-spacing:.08em;color:var(--q-ink);font-weight:800;margin-bottom:7px}
+  .qa .qq{font-weight:700;margin:8px 0 2px}.qa .qq:first-child{margin-top:0}
+  .qa .aa{margin:0 0 4px;color:var(--ink2)}
+
+  .dec{background:var(--dec-bg);border:1px solid var(--dec-line);border-radius:8px;padding:16px 18px;margin:14px 0}
+  .dec::before{content:"✍ この場で決めること";display:block;font-size:.72rem;letter-spacing:.06em;color:var(--ink2);font-weight:800;margin-bottom:8px}
+  .dec ul{margin:0 0 0 18px;padding:0}.dec li{margin:8px 0;line-height:1.7}
+
+  .tip{font-size:.85rem;color:var(--ink3);margin:10px 0 0 40px;line-height:1.7}
+  b{font-weight:700}
+  .num{font-variant-numeric:tabular-nums}
+  .foot{margin-top:40px;padding-top:18px;border-top:1px solid var(--rule);font-size:.78rem;color:var(--ink3);line-height:1.85}
+  @media(max-width:600px){body{font-size:16px}.doc{padding:0 16px 70px}.cover h1{font-size:1.55rem}.step h2{font-size:1.15rem}}
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <header class="cover">
+    <div class="k">手元用・自分だけが見る台本</div>
+    <h1>経営会議 進行スクリプト</h1>
+    <p>妻との経営会議で、この順に話す。焦らず、数字は画面を見せながら。所要 30〜40分。</p>
+  </header>
+
+  <!-- 導入 -->
+  <section class="step">
+    <h2><span class="no">0</span>はじめに（空気づくり）</h2>
+    <p class="goal">目的：責める会でも報告会でもなく「一緒に決める会」だと伝える</p>
+    <div class="say">
+      <p>「今日は、うちの会社をこれからどうしていくか、一緒に決めたくて時間もらった。</p>
+      <p>この数週間、うちの<b>全部の販売履歴（1,383件）をとことん分析</b>したんだ。そしたら、<b>今まで思ってたのと違うことが色々わかった</b>。良い話も、直すべき話もある。順番に話すね。」</p>
+    </div>
+    <p class="tip">※ ここでスマホかPCで資料を開いておく。慌てて探さないよう事前に2つのタブを開いておく。</p>
+  </section>
+
+  <!-- ① 現状 -->
+  <section class="step">
+    <h2><span class="no">1</span>まず、会社の今の姿</h2>
+    <p class="goal">目的：「本業は赤字だが、還付金で黒字に見えている」を共有する</p>
+    <div class="show">資料①「経営状況サマリー」を開く<br><a href="https://rin620317-cyber.github.io/business-review/">rin620317-cyber.github.io/business-review/</a></div>
+    <div class="say">
+      <p class="q">「たくさん売れてる。でも "売る仕事" そのものでは、まだ利益が出ていないんだ。」</p>
+      <p>「今の黒字は、国からの<b>消費税の還付金</b>と<b>円安</b><b>のおかげ</b>。商売の外側で作られてる。ここは正直に受け止めたい。</p>
+      <p>でもね、これは<b>裏を返すといい話</b>で、<b>商売さえ黒字にできれば、還付金がまるまる利益として残る</b>。あと一歩なんだ。」</p>
+    </div>
+    <p class="tip">※「100円の行方」の図を見せると直感的に伝わる。深追いせず「1円も残ってない、でも直せる」だけ伝わればOK。</p>
+  </section>
+
+  <!-- ② 返品の訂正 -->
+  <section class="step">
+    <h2><span class="no">2</span>大事な訂正：返品は問題じゃなかった</h2>
+    <p class="goal">目的：以前「返品が多い」と言ったのを訂正。むしろ品質は誇っていい</p>
+    <div class="say">
+      <p>「前に "返品が多いのが課題" って言ったの、覚えてる? <b>あれ、僕の勘違いだった。ごめん。</b></p>
+      <p>ちゃんと調べたら、eBayの公式データで<b>うちの返品は同業他社の5分の1</b>。<b>いちばん良いランク</b>だった。<b>僕らの検品も梱包も、実はプロ級なんだ。</b></p>
+      <p>じゃあ何で数字が大きく見えたかというと、<b>ほとんどが "発送前のキャンセル"</b>。商品は手元に残ってるから、また売れる。損してるわけじゃなかった。」</p>
+    </div>
+    <div class="qa">
+      <div class="qq">Q「じゃあ今まで心配してたのは何だったの?」</div>
+      <div class="aa">A「僕が数字を読み違えてた。でも、おかげで "本当の課題は別にある" ってわかった。それが次の話。むしろ収穫だったよ。」</div>
+    </div>
+  </section>
+
+  <!-- ③ 本当の課題 -->
+  <section class="step">
+    <h2><span class="no">3</span>本当の課題：手を広げすぎている</h2>
+    <p class="goal">目的：「安い商品に時間を使いすぎ」という真の問題を共有</p>
+    <div class="say">
+      <p class="q">「僕らに足りないのは "売る力" じゃなくて、"仕入れる商品を絞ること" だった。」</p>
+      <p>「例えば<b>1万5千円以下の安いカメラ</b>。これが<b>売った数の4分の1</b>もあるのに、<b>売上にすると5%</b>。しかも送料と手数料を引くとほとんど残らない。<b>売れ残りやすい。</b></p>
+      <p>つまり、<b>作業の4分の1を、ほとんど儲からない商品に使ってた</b>。ここを見直すのが、今回いちばん大きい。」</p>
+    </div>
+    <div class="qa">
+      <div class="qq">Q「安いのをやめたら、売上減っちゃわない?」</div>
+      <div class="aa">A「数は減る。でも利益と、何より "時間" が増える。その時間で高いカメラに集中できる。売上より "手元に残るお金" を増やす作戦だよ。」</div>
+    </div>
+  </section>
+
+  <!-- ④ これからの方針 -->
+  <section class="step">
+    <h2><span class="no">4</span>これからの仕入方針</h2>
+    <p class="goal">目的：「高単価・高回転・日本製に集中」という軸を見せる</p>
+    <div class="show">資料②「仕入戦略 2026」を開く<br><a href="https://rin620317-cyber.github.io/business-review/strategy.html">rin620317-cyber.github.io/business-review/strategy.html</a></div>
+    <div class="say">
+      <p>「データが、はっきり答えを出してくれた。<b>高くて・早く売れて・日本製</b>のカメラに集中する。特に —</p>
+      <p>・<b>CanonのEOSや、PowerShotの古いコンデジ</b>。今SNSで "昔のデジカメの写り" が人気で、値段が上がってる。うちの得意分野がそのまま伸びてる。<br>
+      ・<b>ソニーの日本製</b>。実は一番効率がいいのに、まだ数が少ない。伸びしろ大。<br>
+      ・逆に<b>Canonの古いFDレンズや、安い機種</b>は絞る。」</p>
+    </div>
+    <p class="tip">※ 格付け表（A/B/C）を見せる。細かい数字より「緑=増やす、赤=減らす」の色で伝える。</p>
+  </section>
+
+  <!-- ⑤ 新しい挑戦 -->
+  <section class="step">
+    <h2><span class="no">5</span>新しく試したいこと</h2>
+    <p class="goal">目的：Olympus PEN/OM-D の少量テストを提案し、意見を聞く</p>
+    <div class="say">
+      <p>「新しく<b>オリンパスのPENやOM-Dっていう、おしゃれなミラーレスカメラ</b>を試したい。<b>レトロで見た目が可愛くて、インスタ映えする</b>から、若い人や女性に人気なんだ。うち、この路線まだやってない。</p>
+      <p>しかも<b>小さくて軽いから送料が安く済む</b>。オリンパスは今でも成績いいし、相性よさそう。<b>まず3〜5台だけ買って様子見</b>したい。」</p>
+      <p>「あと逆に、<b>Canonの最新ミラーレス</b>は "手を出さない" 方がいいって結論。高すぎてお金が回らなくなるし、うちの得意な "古いカメラの味" とは別の世界だから。」</p>
+    </div>
+    <div class="qa">
+      <div class="qq">Q「新しいの、失敗しない?」</div>
+      <div class="aa">A「だから少しだけ試す。数字で "いける" ってなってから増やす。ダメなら引く。リスクは小さくしてる。」</div>
+    </div>
+  </section>
+
+  <!-- ⑥ お金の守り -->
+  <section class="step">
+    <h2><span class="no">6</span>お金の話（守り）</h2>
+    <p class="goal">目的：滞留在庫の現金化と、今期から税金が出ることを共有</p>
+    <div class="say">
+      <p>「攻めと同じくらい、<b>お金が尽きないようにする</b>のが大事。今、<b>半年以上売れてない在庫が約147万円分</b>ある。ここは<b>少し値下げしてでも売って、現金に戻す</b>。</p>
+      <p>あと、今期から<b>法人税が発生する</b>段階に入る。納税用のお金は別に分けておこう。」</p>
+    </div>
+    <div class="qa">
+      <div class="qq">Q「値下げしたら損しない?」</div>
+      <div class="aa">A「寝てるお金より、動くお金の方が大事。売れたお金で回転の速い商品を仕入れれば、すぐ取り返せる。」</div>
+    </div>
+  </section>
+
+  <!-- ⑦ 決めること -->
+  <section class="step">
+    <h2><span class="no">7</span>今日、二人で決めること</h2>
+    <p class="goal">目的：具体的なアクションを「一緒に」決めて終える</p>
+    <div class="dec">
+      <ul>
+        <li><b>仕入の下限価格</b>を決める（提案：1万5千円。これ以下は原則やめる）</li>
+        <li><b>Olympus PEN/OM-D を3〜5台テスト仕入</b>してみる → BidMachineのリストに追加</li>
+        <li><b>CCDの古いコンデジ</b>（Coolpix・Cyber-shot・FinePixなど）も仕入対象に広げる</li>
+        <li><b>滞留在庫147万円分</b>を、値下げして現金化していく</li>
+        <li><b>Canon最新ミラーレスには手を出さない</b>ことを確認</li>
+        <li><b>月1回30分の「数字を見る会」</b>を続ける（見るのは返品率・本業の利益・手元現金の3つだけ）</li>
+      </ul>
+    </div>
+    <div class="say">
+      <p class="q">「全部いっぺんは無理だから、まずこの中から "これはやろう" ってやつを一緒に選ぼう。」</p>
+    </div>
+  </section>
+
+  <!-- 締め -->
+  <section class="step">
+    <h2><span class="no">8</span>締めの一言</h2>
+    <div class="say">
+      <p>「僕らに足りないのは売る力じゃなくて、<b>売ったあと手元にお金を残す力</b>。それは、地道に仕入れを絞るだけで届く距離にある。</p>
+      <p><b>一緒にやっていこう。</b>いつも現場で支えてくれてありがとう。」</p>
+    </div>
+  </section>
+
+  <div class="foot">
+    手元用の進行台本。妻には資料①②の画面を見せ、この台本自体は見せない前提（想定問答が入っているため）。<br>
+    数字は分析時点のもの。会話は自分の言葉に置きかえてOK。順番と要点だけ守る。
+  </div>
+
+</div>
+</body>
+</html>
