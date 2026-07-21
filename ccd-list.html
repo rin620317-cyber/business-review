@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>CCD仕入リスト — 各社の狙い目機種</title>
+<style>
+  :root{
+    --mincho:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"MS PMincho",Georgia,serif;
+    --paper:#F5F3EF; --surface:#FFFFFF; --band:#ECE8E1;
+    --ink:#1C1F26; --ink2:#586170; --ink3:#8B93A0; --rule:#DDD8CF;
+    --accent:#3B5B7A;
+    --s1:#B0453C; --s1bg:#F8ECEA;
+    --s2:#956412; --s2bg:#F7EFDF;
+    --s3:#2C7A57; --s3bg:#E7F2EC;
+    --s4:#5B4B8A; --s4bg:#EFEBF6;
+    --warn:#956412; --warn-bg:#F7EFDF; --warn-line:#E6D3AC;
+    --up:#2C7A57; --up-bg:#E7F2EC; --up-line:#BCDDCB;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --paper:#14161B; --surface:#1C1F26; --band:#191C22;
+      --ink:#E9E7E2; --ink2:#9BA4B2; --ink3:#6C7480; --rule:#2C313A;
+      --accent:#8FB0D6;
+      --s1:#E08479; --s1bg:#271816;
+      --s2:#D3A65A; --s2bg:#241D12;
+      --s3:#5CC08E; --s3bg:#14251E;
+      --s4:#A99BD6; --s4bg:#1E1A2B;
+      --warn:#D3A65A; --warn-bg:#241D12; --warn-line:#443720;
+      --up:#5CC08E; --up-bg:#14251E; --up-line:#2B4A3A;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#14161B; --surface:#1C1F26; --band:#191C22;
+    --ink:#E9E7E2; --ink2:#9BA4B2; --ink3:#6C7480; --rule:#2C313A;
+    --accent:#8FB0D6; --s1:#E08479; --s1bg:#271816; --s2:#D3A65A; --s2bg:#241D12;
+    --s3:#5CC08E; --s3bg:#14251E; --s4:#A99BD6; --s4bg:#1E1A2B;
+    --warn:#D3A65A; --warn-bg:#241D12; --warn-line:#443720; --up:#5CC08E; --up-bg:#14251E; --up-line:#2B4A3A;
+  }
+  :root[data-theme="light"]{
+    --paper:#F5F3EF; --surface:#FFFFFF; --band:#ECE8E1;
+    --ink:#1C1F26; --ink2:#586170; --ink3:#8B93A0; --rule:#DDD8CF;
+    --accent:#3B5B7A; --s1:#B0453C; --s1bg:#F8ECEA; --s2:#956412; --s2bg:#F7EFDF;
+    --s3:#2C7A57; --s3bg:#E7F2EC; --s4:#5B4B8A; --s4bg:#EFEBF6;
+    --warn:#956412; --warn-bg:#F7EFDF; --warn-line:#E6D3AC; --up:#2C7A57; --up-bg:#E7F2EC; --up-line:#BCDDCB;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Hiragino Kaku Gothic ProN","Yu Gothic",YuGothic,Meiryo,"Segoe UI",sans-serif;
+    font-size:16px;line-height:1.8;-webkit-font-smoothing:antialiased}
+  .doc{max-width:840px;margin:0 auto;padding:0 22px 90px}
+  .sec{padding:38px 0;border-top:1px solid var(--rule)}
+  .sec:first-of-type{border-top:none}
+  h1,h2,h3{font-family:var(--mincho);font-weight:600;text-wrap:balance;margin:0}
+  h2{font-size:1.42rem;line-height:1.5;margin-bottom:10px}
+  .eyebrow{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:10px}
+  p{margin:0 0 12px}b{font-weight:700}
+  .lead{font-size:1.02rem;color:var(--ink2);margin-bottom:16px}
+  .num{font-variant-numeric:tabular-nums}
+  small{color:var(--ink3);font-size:.8rem}
+
+  .cover{padding:64px 0 40px}
+  .cover .org{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);font-weight:700}
+  .cover h1{font-size:2.1rem;line-height:1.4;margin:14px 0 12px}
+  .cover .sub{font-size:1.02rem;color:var(--ink2)}
+  .cover .meta{margin-top:22px;padding-top:16px;border-top:1px solid var(--rule);font-size:.85rem;color:var(--ink3);line-height:1.9}
+
+  .callout{border-left:3px solid var(--accent);padding:3px 0 3px 18px;margin:18px 0}
+  .callout.up{border-color:var(--up)}.callout.warn{border-color:var(--warn)}
+  .callout p:last-child{margin-bottom:0}
+
+  .tier{background:var(--surface);border:1px solid var(--rule);border-radius:5px;padding:6px 22px 18px;margin:16px 0;border-top:4px solid var(--accent)}
+  .tier.t1{border-top-color:var(--s1)}.tier.t2{border-top-color:var(--s2)}
+  .tier.t3{border-top-color:var(--s3)}.tier.t4{border-top-color:var(--s4)}
+  .tier .th{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:14px 0 4px}
+  .tier .th h3{font-size:1.16rem}
+  .tier .badge{font-size:.68rem;font-weight:800;padding:3px 11px;border-radius:2px;flex:none}
+  .t1 .badge{background:var(--s1bg);color:var(--s1)} .t2 .badge{background:var(--s2bg);color:var(--s2)}
+  .t3 .badge{background:var(--s3bg);color:var(--s3)} .t4 .badge{background:var(--s4bg);color:var(--s4)}
+  .tier .price{margin-left:auto;font-family:var(--mincho);font-weight:600;font-size:.92rem;color:var(--ink2);flex:none}
+  .tier .desc{font-size:.86rem;color:var(--ink3);margin:0 0 12px}
+
+  .tw{overflow-x:auto}
+  table{width:100%;border-collapse:collapse;font-size:.9rem;min-width:520px}
+  th{text-align:left;font-size:.7rem;letter-spacing:.05em;text-transform:uppercase;color:var(--ink3);font-weight:700;padding:0 11px 8px;border-bottom:1px solid var(--rule);white-space:nowrap}
+  td{padding:9px 11px;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.6}
+  td.m{font-weight:700;white-space:nowrap}
+  .star{color:var(--s1);font-weight:800}
+  .jp{display:inline-block;font-size:.64rem;font-weight:800;padding:1px 6px;border-radius:2px;background:var(--up-bg);color:var(--up);border:1px solid var(--up-line);vertical-align:middle}
+
+  ul.plain{margin:10px 0 0 18px;padding:0;color:var(--ink2)}ul.plain li{margin:6px 0;line-height:1.75}
+  .foot{margin-top:36px;padding-top:18px;border-top:1px solid var(--rule);font-size:.78rem;color:var(--ink3);line-height:1.85}
+  @media(max-width:600px){body{font-size:15px}.doc{padding:0 16px 70px}.cover h1{font-size:1.6rem}.tier{padding:6px 16px 16px}.tier .price{margin-left:0;width:100%}}
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <header class="cover">
+    <div class="org">合同会社 Nadymade ・ 仕入リファレンス</div>
+    <h1>CCD仕入リスト</h1>
+    <div class="sub">「CCDの写り」人気に乗る、各社の狙い目機種</div>
+    <div class="meta">
+      2000〜2012年頃のCCD搭載機を対象。SNSでの再評価で<b>日本の中古相場が約4倍に高騰中</b>（¥5,000〜10,000 → ¥20,000〜40,000）。<br>
+      当社の得意領域（PowerShot S・EOS旧デジ）の延長線。<span class="jp">日</span>＝日本製が多く関税面でも有利な系統。
+    </div>
+  </header>
+
+  <!-- 前提 -->
+  <section class="sec">
+    <div class="eyebrow">はじめに</div>
+    <h2>なぜCCDか / 買うときの原則</h2>
+    <p class="lead">CCDセンサーは、今のCMOSやスマホより<b>暖かい色・フィルムのような写り</b>を出す。この「エモさ」がSNSで再評価され、<b>2000年代の安物コンデジが数倍に値上がり</b>している。当社が既に強いカテゴリーなので、<b>面で取りに行く</b>。</p>
+    <div class="callout up"><p><b>相場が変わった：</b>以前は「¥15,000以下は仕入対象外」だったが、<b>CCDコンデジはこの下限を超えて値上がり</b>している。従来「安くて非効率」だった機種が、<b>いま利益の出る商品に変わりつつある</b>。ただし機種を選ぶこと。</p></div>
+    <h3>買うときの原則</h3>
+    <ul class="plain">
+      <li><b>状態が命</b>。CCDは経年で「センサー不良（画面に線・紫かぶり）」が出る個体がある。<b>必ず通電・撮影確認</b>。特に下の注意機種</li>
+      <li><b>液晶・レンズ・バッテリー</b>。専用バッテリーが入手困難な機種は減点。液晶焼け・レンズ内カビは要チェック</li>
+      <li><b>日本製 <span class="jp">日</span> を優先</b>。関税面で有利。ソニー等は原産国を確認（中国製は関税注意）</li>
+      <li><b>付属品・箱</b>があると「コレクション需要」で単価が上がる</li>
+    </ul>
+    <div class="callout warn"><p><b>⚠ 要注意の既知不良：</b>2003〜2005年頃、<b>ソニー製CCDの欠陥</b>で多数のメーカー機に「起動しない・画像が乱れる」不具合が出た事例がある（各社共通部品）。この時期のコンデジは<b>特に動作確認を厳重に</b>。</p></div>
+  </section>
+
+  <!-- Tier 1 本命 -->
+  <section class="sec">
+    <div class="eyebrow">狙い目リスト</div>
+    <h2>① 本命 — プレミアムCCDコンパクト</h2>
+    <p class="lead">高単価・高需要・当社の実績領域。<b>ここを最優先で厚くする。</b></p>
+
+    <div class="tier t1">
+      <div class="th"><h3>Canon <span class="jp">日</span></h3><span class="badge">実績あり・最優先</span><span class="price">¥3〜7万</span></div>
+      <p class="desc">当社のPowerShot Sは既に資本効率トップ。CCD世代を面で押さえる。</p>
+      <div class="tw"><table>
+        <thead><tr><th>機種</th><th>ひとこと</th></tr></thead>
+        <tbody>
+          <tr><td class="m">PowerShot S95 <span class="star">★</span></td><td>S90の改良版。S90はレンズエラー多発のため<b>S95を優先</b></td></tr>
+          <tr><td class="m">PowerShot G10 / G11 / G12 <span class="star">★</span></td><td>高級コンパクトの定番。CCD搭載。G1X以降はCMOSなので対象外</td></tr>
+          <tr><td class="m">PowerShot S90</td><td>人気だが<b>個体リスク高</b>。状態確認を厳重に（当社で2回不良）</td></tr>
+          <tr><td class="m">PowerShot Pro1</td><td>2004年の名機。Lレンズ搭載でコレクター需要</td></tr>
+          <tr><td class="m">IXY / IXUS Digital（初期）</td><td>デザイン人気。ただし低単価寄り、状態で選ぶ</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="tier t1">
+      <div class="th"><h3>Ricoh <span class="jp">日</span></h3><span class="badge">高単価・カルト</span><span class="price">¥4〜9万</span></div>
+      <p class="desc">Ricohは全体では非効率だが、GR Digitalは別格。個別に狙う。</p>
+      <div class="tw"><table>
+        <thead><tr><th>機種</th><th>ひとこと</th></tr></thead>
+        <tbody>
+          <tr><td class="m">GR Digital III / IV <span class="star">★</span></td><td>CCD世代のGR。熱狂的ファン。<b>高単価の本命</b>。※GR(APS-C, 2013〜)はCMOSで別物</td></tr>
+          <tr><td class="m">GR Digital / II</td><td>初代・II。より古く味がある。状態次第で高値</td></tr>
+          <tr><td class="m">GX100 / GX200</td><td>広角ズームの通好み。GRより手頃</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="tier t1">
+      <div class="th"><h3>Fujifilm <span class="jp">日</span></h3><span class="badge">名機あり</span><span class="price">¥2〜6万</span></div>
+      <p class="desc">富士は独自のスーパーCCD。色が売り。</p>
+      <div class="tw"><table>
+        <thead><tr><th>機種</th><th>ひとこと</th></tr></thead>
+        <tbody>
+          <tr><td class="m">FinePix F31fd / F30 <span class="star">★</span></td><td><b>伝説の名機</b>。高感度とCCDの色で今も人気。見つけたら即買い水準</td></tr>
+          <tr><td class="m">FinePix F10 / F11</td><td>F31fdの兄弟。手頃で色が良い</td></tr>
+          <tr><td class="m">FinePix F100fd / F200EXR</td><td>EXR CCD世代。ズーム機で実用人気</td></tr>
+          <tr><td class="m">FinePix S系（ネオ一眼）</td><td>大きめだがCCDの写り。安く出たら</td></tr>
+        </tbody>
+      </table></div>
+      <p style="font-size:.82rem;color:var(--ink3);margin:8px 0 0">※ X100/X-Eシリーズは人気だが<b>CMOS</b>。CCDの「エモさ」目的とは別カテゴリー（それはそれで高単価で狙える）。</p>
+    </div>
+
+    <div class="tier t1">
+      <div class="th"><h3>Panasonic / Leica <span class="jp">日</span></h3><span class="badge">高級ライン</span><span class="price">¥3〜15万</span></div>
+      <p class="desc">LumixのLX系はLeica版の双子があり、Leicaブランドで単価が跳ねる。</p>
+      <div class="tw"><table>
+        <thead><tr><th>機種</th><th>ひとこと</th></tr></thead>
+        <tbody>
+          <tr><td class="m">Lumix LX3 / LX5 <span class="star">★</span></td><td>名玉ライカレンズ搭載の高級コンパクト。CCD。定番人気</td></tr>
+          <tr><td class="m">Leica D-Lux 4 / 3</td><td>LX3/LX2のライカ版。<b>同じ中身でブランド分だけ高値</b></td></tr>
+          <tr><td class="m">Lumix LC1 / Leica Digilux 2 <span class="star">★</span></td><td>2004年の高級機。Digilux 2は特に高単価・コレクター向け</td></tr>
+          <tr><td class="m">Lumix FZ30 / FZ50</td><td>ネオ一眼のCCD。安く出れば</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="tier t1">
+      <div class="th"><h3>Olympus / Pentax / Nikon <span class="jp">日</span></h3><span class="badge">プレミアム</span><span class="price">¥3〜7万</span></div>
+      <div class="tw"><table>
+        <thead><tr><th>機種</th><th>ひとこと</th></tr></thead>
+        <tbody>
+          <tr><td class="m">Olympus XZ-1 <span class="star">★</span></td><td>明るいレンズの高級CCDコンパクト。人気</td></tr>
+          <tr><td class="m">Pentax MX-1 <span class="star">★</span></td><td>レトロデザインのCCD高級機。見た目人気</td></tr>
+          <tr><td class="m">Nikon Coolpix P7000 / P7100</td><td>Nikonの高級コンパクト。CCD。堅実な需要</td></tr>
+          <tr><td class="m">Nikon Coolpix P5000 / P6000</td><td>ひと世代前。手頃で色が良い</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <!-- Tier 2 カルト -->
+  <section class="sec">
+    <h2>② カルト・個性派 — デザインや描写で刺さる</h2>
+    <p class="lead">万人向けではないが、<b>刺さる客には高値</b>。回転はやや落ちるが単価が乗る。</p>
+
+    <div class="tier t2">
+      <div class="th"><h3>個性派コンパクト</h3><span class="badge">通好み</span><span class="price">¥2〜8万</span></div>
+      <div class="tw"><table>
+        <thead><tr><th>機種</th><th>ひとこと</th></tr></thead>
+        <tbody>
+          <tr><td class="m">Sony Cyber-shot DSC-F828 / F717 / F707</td><td>回転レンズの個性派デザイン。カルト人気。<span class="jp">日</span>だが原産国確認</td></tr>
+          <tr><td class="m">Nikon Coolpix 990 / 995 / 4500 <span class="jp">日</span></td><td>スイバル（回転式）の名物機。独特で人気再燃</td></tr>
+          <tr><td class="m">Olympus Camedia C-5050 / C-8080 <span class="jp">日</span></td><td>明るいレンズのハイエンド。写りで根強い支持</td></tr>
+          <tr><td class="m">Olympus μ(mju) Digital <span class="jp">日</span></td><td>スタイリッシュな小型。デザイン買い層に人気上昇</td></tr>
+          <tr><td class="m">Contax i4R / TVS Digital / SL300R</td><td>希少。ブランド力で高単価。玉数少ない</td></tr>
+          <tr><td class="m">Kyocera / 京セラ系</td><td>Contax系の派生。マニア需要</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <!-- Tier 3 一眼 -->
+  <section class="sec">
+    <h2>③ CCD一眼レフ — 味わい・コレクター</h2>
+    <p class="lead">CCD搭載のデジタル一眼。コンデジより高単価で、<b>「CCDの色」を求める上級者</b>が狙う。当社のボディ強化方針とも合致。</p>
+
+    <div class="tier t3">
+      <div class="th"><h3>CCD一眼</h3><span class="badge">高単価・ボディ</span><span class="price">¥3〜10万</span></div>
+      <div class="tw"><table>
+        <thead><tr><th>機種</th><th>ひとこと</th></tr></thead>
+        <tbody>
+          <tr><td class="m">Olympus E-1 / E-300 <span class="jp">日</span> <span class="star">★</span></td><td>コダックCCD搭載の名機。独特の発色でコレクター人気が高い</td></tr>
+          <tr><td class="m">Nikon D40 / D50 / D70 / D80 / D200 <span class="jp">日</span></td><td>CCD世代のNikon一眼。D200は上位機で単価高め</td></tr>
+          <tr><td class="m">Pentax K10D / K200D / *ist D <span class="jp">日</span></td><td>CCDのPentax一眼。堅実な需要</td></tr>
+          <tr><td class="m">Sony α100 <span class="jp">日</span> <span class="star">★</span></td><td>CCD搭載・ミノルタ由来。<b>当社のSony日本製強化と直結</b></td></tr>
+          <tr><td class="m">Konica Minolta α Sweet / 7D / 5D <span class="jp">日</span></td><td>CCDのミノルタ一眼。Aマウント資産として価値</td></tr>
+        </tbody>
+      </table></div>
+      <p style="font-size:.82rem;color:var(--ink3);margin:8px 0 0">※ <b>Canonの一眼はほぼCMOS</b>（EOS Kiss/二桁D等）。CCD一眼としては上記他社が対象。CanonはコンデジのCCDで狙う。</p>
+    </div>
+  </section>
+
+  <!-- Tier 4 超高級 -->
+  <section class="sec">
+    <h2>④ 超高級 — 資金に余裕があるとき</h2>
+    <p class="lead">1台で大きく現金を拘束するため<b>回転と相談</b>。ただし利幅は大きい。</p>
+    <div class="tier t4">
+      <div class="th"><h3>フラッグシップCCD</h3><span class="badge">高額・目利き必須</span><span class="price">¥10〜30万+</span></div>
+      <div class="tw"><table>
+        <thead><tr><th>機種</th><th>ひとこと</th></tr></thead>
+        <tbody>
+          <tr><td class="m">Leica M9 / M-E / M8 <span class="star">★</span></td><td><b>CCDの代名詞</b>。M9は「CCDの写り」の頂点として別格の需要。高額だが確実に売れる。センサー腐食（既知問題）の確認必須</td></tr>
+          <tr><td class="m">Leica Digilux 2</td><td>コンパクトだが高級。上のTier1とも重複</td></tr>
+          <tr><td class="m">Contax N Digital</td><td>2002年の希少なフルサイズCCD一眼。玉数極少・目利き必須</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <!-- 混同注意 -->
+  <section class="sec">
+    <div class="eyebrow">まぎらわしい注意</div>
+    <h2>CMOSだが人気の機種（別カテゴリー）</h2>
+    <p class="lead">以下は<b>CCDではなくCMOS</b>。人気で高単価なので狙う価値はあるが、「CCDの写り」目的の客には別物。混同して仕入れないよう区別する。</p>
+    <div class="tw"><table>
+      <thead><tr><th>機種</th><th>センサー</th><th>メモ</th></tr></thead>
+      <tbody>
+        <tr><td class="m">Fujifilm X100 系</td><td>CMOS</td><td>大人気・高単価。ただしCCDではない</td></tr>
+        <tr><td class="m">Sony RX100 系</td><td>CMOS</td><td>高性能コンパクトの定番。CCDブームとは別軸</td></tr>
+        <tr><td class="m">Ricoh GR（APS-C, 2013〜）</td><td>CMOS</td><td>GR Digital（CCD）と名前が紛らわしい。要区別</td></tr>
+        <tr><td class="m">Canon PowerShot S100 / S110 / S120</td><td>CMOS</td><td>当社実績あり・高回転だがCCDではない（S95まではCCD）</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <!-- 実行 -->
+  <section class="sec">
+    <div class="eyebrow">実行</div>
+    <h2>次の一手</h2>
+    <ul class="plain">
+      <li><b>BidMachineの検索リストに、上のTier1機種名を追加</b>する（S95・G11・GR Digital III/IV・F31fd・LX3・XZ-1・MX-1 など）</li>
+      <li><b>まずTier1のコンパクトから</b>。当社の実績領域で低リスク。回転と粗利を既存PowerShot Sと比較</li>
+      <li><b>状態確認を仕入基準に明記</b>。CCD不良・液晶・バッテリーの3点は必須チェック</li>
+      <li>売れ行きが確認できたら<b>Tier2・Tier3へ拡大</b>。Sony α100・Olympus E-1は当社の他戦略とも重なる</li>
+      <li>Leica M9等のTier4は<b>資金と回転に余裕が出てから</b></li>
+    </ul>
+  </section>
+
+  <div class="foot">
+    合同会社Nadymade ／ 仕入リファレンス。CCD搭載可否・人気度は一般的な市場動向にもとづく。相場・人気は変動する。<br>
+    価格帯は中古相場の目安（状態・付属品で大きく変動）。仕入時は必ず現物の動作・状態を確認すること。<span class="jp">日</span>＝日本製が主流の系統（個体差あり・原産国は要確認）。
+  </div>
+
+</div>
+</body>
+</html>
