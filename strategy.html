@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>仕入戦略 2026 — データが示す「何を仕入れるべきか」</title>
+<style>
+  :root{
+    --mincho:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"MS PMincho",Georgia,serif;
+    --paper:#F5F3EF; --surface:#FFFFFF; --band:#ECE8E1;
+    --ink:#1C1F26; --ink2:#586170; --ink3:#8B93A0; --rule:#DDD8CF;
+    --accent:#3B5B7A;
+    --up:#2C7A57; --up-bg:#E7F2EC; --up-line:#BCDDCB;
+    --down:#B0453C; --down-bg:#F8ECEA; --down-line:#E7C9C4;
+    --warn:#956412; --warn-bg:#F7EFDF; --warn-line:#E6D3AC;
+    --hi:#C9A24A;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --paper:#14161B; --surface:#1C1F26; --band:#191C22;
+      --ink:#E9E7E2; --ink2:#9BA4B2; --ink3:#6C7480; --rule:#2C313A;
+      --accent:#8FB0D6;
+      --up:#5CC08E; --up-bg:#14251E; --up-line:#2B4A3A;
+      --down:#E08479; --down-bg:#271816; --down-line:#48302C;
+      --warn:#D3A65A; --warn-bg:#241D12; --warn-line:#443720;
+      --hi:#D9BB6B;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#14161B; --surface:#1C1F26; --band:#191C22;
+    --ink:#E9E7E2; --ink2:#9BA4B2; --ink3:#6C7480; --rule:#2C313A;
+    --accent:#8FB0D6; --up:#5CC08E; --up-bg:#14251E; --up-line:#2B4A3A;
+    --down:#E08479; --down-bg:#271816; --down-line:#48302C;
+    --warn:#D3A65A; --warn-bg:#241D12; --warn-line:#443720; --hi:#D9BB6B;
+  }
+  :root[data-theme="light"]{
+    --paper:#F5F3EF; --surface:#FFFFFF; --band:#ECE8E1;
+    --ink:#1C1F26; --ink2:#586170; --ink3:#8B93A0; --rule:#DDD8CF;
+    --accent:#3B5B7A; --up:#2C7A57; --up-bg:#E7F2EC; --up-line:#BCDDCB;
+    --down:#B0453C; --down-bg:#F8ECEA; --down-line:#E7C9C4;
+    --warn:#956412; --warn-bg:#F7EFDF; --warn-line:#E6D3AC; --hi:#C9A24A;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Hiragino Kaku Gothic ProN","Yu Gothic",YuGothic,Meiryo,"Segoe UI",sans-serif;
+    font-size:16px;line-height:1.85;-webkit-font-smoothing:antialiased}
+  .doc{max-width:820px;margin:0 auto;padding:0 22px 90px}
+  .sec{padding:44px 0;border-top:1px solid var(--rule)}
+  .sec:first-of-type{border-top:none}
+  h1,h2,h3,h4{font-family:var(--mincho);font-weight:600;text-wrap:balance;margin:0}
+  h2{font-size:1.5rem;color:var(--ink);line-height:1.5;margin-bottom:12px;letter-spacing:.01em}
+  h3{font-size:1.14rem;margin:26px 0 10px}
+  .eyebrow{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:12px}
+  p{margin:0 0 13px}
+  b{font-weight:700}
+  .lead{font-size:1.04rem;color:var(--ink2);margin-bottom:18px}
+  .num{font-variant-numeric:tabular-nums}
+  small{color:var(--ink3);font-size:.8rem}
+
+  .cover{padding:76px 0 46px}
+  .cover .org{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);font-weight:700}
+  .cover h1{font-size:2.35rem;line-height:1.4;margin:16px 0 14px;letter-spacing:.02em}
+  .cover .sub{font-size:1.05rem;color:var(--ink2)}
+  .cover .meta{margin-top:26px;padding-top:18px;border-top:1px solid var(--rule);font-size:.85rem;color:var(--ink3);line-height:1.9}
+
+  .callout{border-left:3px solid var(--accent);padding:3px 0 3px 18px;margin:20px 0}
+  .callout.up{border-color:var(--up)} .callout.down{border-color:var(--down)} .callout.warn{border-color:var(--warn)}
+  .callout p:last-child{margin-bottom:0}
+
+  .principle{background:var(--surface);border:1px solid var(--rule);border-radius:4px;padding:22px 26px;margin:18px 0}
+  .principle .big{font-family:var(--mincho);font-size:1.28rem;line-height:1.6;color:var(--ink);margin-bottom:8px}
+
+  .tw{overflow-x:auto;margin:18px 0}
+  table{width:100%;border-collapse:collapse;font-size:.92rem;min-width:520px}
+  th{text-align:left;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);font-weight:700;padding:0 12px 10px;border-bottom:1px solid var(--rule);white-space:nowrap}
+  td{padding:11px 12px;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.65}
+  td.n{text-align:right;font-family:var(--mincho);font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .tag{display:inline-block;font-size:.68rem;font-weight:800;padding:2px 9px;border-radius:2px;white-space:nowrap}
+  .tag.g{background:var(--up-bg);color:var(--up);border:1px solid var(--up-line)}
+  .tag.r{background:var(--down-bg);color:var(--down);border:1px solid var(--down-line)}
+  .tag.y{background:var(--warn-bg);color:var(--warn);border:1px solid var(--warn-line)}
+  .up-t{color:var(--up);font-weight:700} .down-t{color:var(--down);font-weight:700}
+
+  .rec{background:var(--surface);border:1px solid var(--rule);border-radius:4px;padding:22px 24px;margin:14px 0}
+  .rec .h{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:4px}
+  .rec .h h4{font-size:1.12rem}
+  .rec .verdict{margin-left:auto;font-size:.72rem;font-weight:800;padding:3px 12px;border-radius:2px;flex:none}
+  .rec .why{font-size:.85rem;color:var(--ink3);margin:2px 0 12px}
+  .rec ul{margin:0 0 0 19px;padding:0;font-size:.94rem;color:var(--ink2)}
+  .rec li{margin:6px 0;line-height:1.8}
+  ul.plain{margin:12px 0 0 19px;padding:0;color:var(--ink2)} ul.plain li{margin:7px 0;line-height:1.8}
+
+  .grade{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;font-family:var(--mincho);font-weight:700;font-size:.9rem;flex:none}
+  .grade.a{background:var(--up-bg);color:var(--up);border:1px solid var(--up-line)}
+  .grade.b{background:var(--band);color:var(--ink2);border:1px solid var(--rule)}
+  .grade.c{background:var(--down-bg);color:var(--down);border:1px solid var(--down-line)}
+
+  .foot{margin-top:40px;padding-top:20px;border-top:1px solid var(--rule);font-size:.78rem;color:var(--ink3);line-height:1.9}
+  @media(max-width:640px){
+    body{font-size:15px}.doc{padding:0 18px 70px}.sec{padding:34px 0}
+    .cover{padding:48px 0 34px}.cover h1{font-size:1.7rem}h2{font-size:1.3rem}
+    .principle,.rec{padding:18px}
+  }
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <header class="cover">
+    <div class="org">合同会社 Nadymade ・ 内部戦略資料</div>
+    <h1>仕入戦略 2026</h1>
+    <div class="sub">1,383件の販売履歴が示す「何を仕入れるべきか」</div>
+    <div class="meta">
+      第5期までの全販売データ（資本効率・回転・単価トレンド）にもとづく分析。<br>
+      当初レポートの「返品率が最大の課題」は誤診断と判明。実際の課題は<b>仕入の選択と集中</b>にある。
+    </div>
+  </header>
+
+  <!-- 要約 -->
+  <section class="sec">
+    <div class="eyebrow">要約</div>
+    <h2>3行でいうと</h2>
+    <p class="lead">売る力・目利きは十分にある。問題は<b>「効率の低い商品に手を広げすぎている」</b>こと。仕入を<b>高単価・高回転・日本製</b>に集中させ、低単価品から撤退すれば、同じ売上でも現金と利益が増える。</p>
+    <div class="callout">
+      <p><b>いちばん大事な指標は「資本効率」＝ 粗利率 × 年間回転数。</b>仕入に使った1円が、1年で何円の粗利を生むか。手元現金が薄い今、<b>粗利率が高くても回転が遅い商品は避ける</b>。</p>
+    </div>
+  </section>
+
+  <!-- 原則 -->
+  <section class="sec">
+    <div class="eyebrow">判断の原則</div>
+    <h2>仕入れる／見送るを、こう決める</h2>
+    <div class="principle">
+      <div class="big">① 単価が高いほど、速く売れて効率が良い。</div>
+      <p style="margin:0;color:var(--ink2)">〜1.5万円帯は資本効率157・在庫146日。6〜10万円帯は資本効率297・在庫48日。<b>低単価は送料と手数料の固定費で利益が消え、しかも売れ残る。</b></p>
+    </div>
+    <div class="principle">
+      <div class="big">② ボディはレンズより効率が良い。</div>
+      <p style="margin:0;color:var(--ink2)">一眼ボディ273・コンデジ262に対し、レンズ174・アクセサリー158。ただし販売の56%がレンズに偏っている。<b>ボディ比率を上げる余地が大きい。</b></p>
+    </div>
+    <div class="principle">
+      <div class="big">③ 日本製を軸に。中国製は関税で利益が削られる。</div>
+      <p style="margin:0;color:var(--ink2)">米国向け関税は原産国で決まる。ヴィンテージ日本製カメラは低関税＝当社の主戦場。現代Sony・一部Sigmaの中国製は高関税で利益負けする。</p>
+    </div>
+  </section>
+
+  <!-- ブランド×機種の格付け -->
+  <section class="sec">
+    <div class="eyebrow">格付け</div>
+    <h2>ブランド × 機種の実力表</h2>
+    <p class="lead">「Canonが良い／悪い」ではなく、<b>機種ファミリー単位</b>で見ると強弱がはっきりする。数字は資本効率（高いほど良い）。</p>
+    <div class="tw">
+      <table>
+        <thead><tr><th>評価</th><th>カテゴリー</th><th class="n">資本効率</th><th class="n">回転</th><th>単価トレンド</th><th>方針</th></tr></thead>
+        <tbody>
+          <tr><td><span class="grade a">A</span></td><td><b>Canon PowerShot S/G</b>（コンデジ）</td><td class="n">377 / 255</td><td class="n">8.3</td><td class="up-t">▲ 上昇（S110/S120）</td><td><span class="tag g">増やす</span></td></tr>
+          <tr><td><span class="grade a">A</span></td><td><b>Sony（日本製）</b></td><td class="n">374</td><td class="n">10.4</td><td>→</td><td><span class="tag g">増やす</span></td></tr>
+          <tr><td><span class="grade a">A</span></td><td><b>Canon EOSボディ</b>（1D系含む）</td><td class="n">291</td><td class="n">7.8</td><td class="up-t">▲ 上昇（旧デジ人気）</td><td><span class="tag g">増やす</span></td></tr>
+          <tr><td><span class="grade a">A</span></td><td><b>Canon EF/EF-Sレンズ</b></td><td class="n">282</td><td class="n">8.5</td><td class="down-t">▼ 下落（RF移行）</td><td><span class="tag y">維持・安く買う</span></td></tr>
+          <tr><td><span class="grade b">B</span></td><td>Pentax</td><td class="n">230</td><td class="n">5.2</td><td>→</td><td><span class="tag g">やや増</span></td></tr>
+          <tr><td><span class="grade b">B</span></td><td>Nikon（当初の主力）</td><td class="n">213</td><td class="n">5.5</td><td>→</td><td><span class="tag y">維持</span></td></tr>
+          <tr><td><span class="grade b">B</span></td><td>Olympus</td><td class="n">195</td><td class="n">4.9</td><td>→</td><td><span class="tag g">拡大候補 ↓</span></td></tr>
+          <tr><td><span class="grade b">B</span></td><td>Sigma / Foveon（SD・DP・SA）</td><td class="n">168</td><td class="n">4.0</td><td>—</td><td><span class="tag y">上限を決めて継続</span></td></tr>
+          <tr><td><span class="grade c">C</span></td><td>Canon FDレンズ</td><td class="n">144</td><td class="n">2.6</td><td>—</td><td><span class="tag r">絞る（低単価）</span></td></tr>
+          <tr><td><span class="grade c">C</span></td><td>Ricoh / Contax / Bronica</td><td class="n">116–152</td><td class="n">3–5</td><td>—</td><td><span class="tag r">絞る</span></td></tr>
+          <tr><td><span class="grade c">C</span></td><td>Yashica</td><td class="n">81</td><td class="n">3.1</td><td>—</td><td><span class="tag r">最も非効率</span></td></tr>
+          <tr><td><span class="grade c">C</span></td><td><b>〜1.5万円帯すべて</b></td><td class="n">157</td><td class="n">2.5</td><td>—</td><td><span class="tag r">下限を設定</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout warn"><p><b>最大の気づき：</b>「Canon」も「Sony」も、<b>全体平均は個別の強みを隠していた</b>。Canonの本当の強みは EOSボディ・PowerShot・EFレンズで、FDレンズが足を引っ張っていた。Sonyは日本製だけが強い。<b>ブランド単位ではなく機種単位で仕入判断する。</b></p></div>
+  </section>
+
+  <!-- いま起きているトレンド -->
+  <section class="sec">
+    <div class="eyebrow">追い風と向かい風</div>
+    <h2>相場のトレンドを味方につける</h2>
+    <div class="callout up"><p><b>▲ 追い風：オールドデジタル（CCD）人気</b><br>初期デジタルカメラ独特の写りがSNSで再評価され、<b>EOSボディ・PowerShot Sシリーズの単価が上昇</b>。当社の強い領域がそのまま伸びている。<b>この波に乗る仕入を厚くする。</b></p></div>
+    <div class="callout down"><p><b>▼ 向かい風：EFレンズの型落ち化</b><br>Canonがミラーレス（RFマウント）へ移行し、EF Lズームの中古相場が緩やかに下落（EF 70-200 ▼16%、24-70 ▼19%、80-200 ▼32%）。<b>売れ筋なので継続するが、直近相場を天井に安く仕入れる。</b>過去の高値を基準にしない。</p></div>
+  </section>
+
+  <!-- 新規カテゴリー -->
+  <section class="sec">
+    <div class="eyebrow">新規参入の検討</div>
+    <h2>手をつけていない領域は、入るべきか</h2>
+
+    <div class="rec">
+      <div class="h"><h4>Canon ミラーレス（RFマウント・現行機）</h4><span class="verdict tag r">見送り推奨</span></div>
+      <p class="why">EOSボディが好調だから、と現行ミラーレスに広げるのは筋が違う</p>
+      <ul>
+        <li><b>当社の強みは「ヴィンテージ・旧デジタルの味」</b>。現行ミラーレスは真逆の「最新・高性能」市場で、戦い方が別物</li>
+        <li><b>高額（1台10〜50万）で現金を大きく拘束</b>。流動比率88.8%の今、1台の仕入で資金が詰まる</li>
+        <li>現行機は<b>値下がりが速く</b>（新型が出るたび下落）、出品者も多くて<b>薄利のコモディティ</b>。当社の目利きが効かない</li>
+        <li>EOSボディの上昇は<b>旧デジタル（CCD）が牽引</b>しており、現行ミラーレスとは無関係</li>
+      </ul>
+      <div class="callout" style="margin:12px 0 0"><p><b>代案：</b>どうしてもミラーレスを試すなら、<b>生産終了した EOS M（EF-Mマウント）</b>から。小型・低単価・「型落ちで相場が安定」しており、当社のヴィンテージ路線と親和性がある。RF現行機より遥かに低リスク。</p></div>
+    </div>
+
+    <div class="rec">
+      <div class="h"><h4>Olympus マイクロフォーサーズ（PEN / OM-D）</h4><span class="verdict tag g">テスト推奨</span></div>
+      <p class="why">Olympusは既に資本効率195でCanon（182）超え。デジタルPEN/OM-Dは当社の強みと合致する</p>
+      <ul>
+        <li><b>Olympusは既に実績あり</b>（39件・効率195）。ブランドとして外れていない</li>
+        <li><b>PEN-F・PEN E-P/E-PL・OM-D E-M5/E-M10</b> はレトロデザインで<b>デザイン買い・インスタ映え層</b>に強い。Foveonで感じた「作例・見た目で売れる」強みと同じ客層</li>
+        <li><b>マイクロフォーサーズは小型軽量＝送料が安い</b>。低送料は粗利に直結（当社の弱点=送料負けの逆を突ける）</li>
+        <li>旧デジタル人気の追い風もかかりやすいカテゴリー</li>
+      </ul>
+      <div class="callout up" style="margin:12px 0 0"><p><b>進め方：</b>まず<b>PEN-F と OM-D E-M5系を3〜5台テスト仕入</b>。回転と粗利が既存Olympus平均（195）を超えれば本格化。BidMachineのリストに追加する。</p></div>
+    </div>
+  </section>
+
+  <!-- 攻めの仕入リスト -->
+  <section class="sec">
+    <div class="eyebrow">具体的な仕入対象</div>
+    <h2>今後、狙って仕入れるべきもの</h2>
+    <p class="lead">データと相場トレンドの両方が示す、<b>優先度の高い具体的ターゲット</b>。</p>
+
+    <h3>◎ 最優先で厚くする</h3>
+    <ul class="plain">
+      <li><b>CCDコンデジ全般</b> — 追い風の中心。Canon PowerShot S/Gに加え、<b>Nikon Coolpix・Sony Cyber-shot（CCD期 DSC-W/T）・Fuji FinePix F系</b>へ横展開。旧デジタル人気を面で取りに行く</li>
+      <li><b>Canon EOSボディ（旧デジタル・1D系・5D/6D系）</b> — 最強ファミリー＋上昇トレンド。ただし1D系の高値は「当たり前」と考えず、相場を見て仕入</li>
+      <li><b>Sony 日本製</b> — 最高効率なのに45件のみ＝最大の伸びしろ。<b>ミノルタ由来のAマウント資産、日本製Cyber-shot</b>に絞る（中国製Eマウントは関税注意）</li>
+      <li><b>高単価の日本製一眼ボディ（3〜10万円帯）</b> — 主戦場。Pentax・Nikonの上位機も含む</li>
+    </ul>
+
+    <h3>○ 選んで仕入れる</h3>
+    <ul class="plain">
+      <li><b>Canon EF/EF-S Lズーム</b> — 売れ筋。ただし<b>直近相場を天井に、下落前提で安く</b>（70-200 f/2.8とf/4は別物として値付け）</li>
+      <li><b>Ricoh GR系</b> — Ricoh全体は弱いが、GRは高単価・カルト人気の別格。個別に狙う価値あり</li>
+      <li><b>Olympus PEN-F / OM-D</b> — 上記テスト対象</li>
+    </ul>
+
+    <h3>× 減らす・下限を引く</h3>
+    <ul class="plain">
+      <li><b>〜1.5万円のすべて</b> — 送料負け・低回転。<b>仕入下限を¥15,000〜20,000に設定</b>。件数の27%を占めるこの帯を卒業するだけで、作業量が減り高単価に集中できる</li>
+      <li><b>Canon FDレンズ・Yashica・Bronica</b> — 低単価・低回転。安く出るときだけ</li>
+      <li><b>SIGMA SAマウント単体</b> — Foveonボディとセット/クロスセル前提でのみ。単体で広告に出すと誤認キャンセルを生む</li>
+      <li><b>Canon PowerShot S90（特定機種）</b> — 2回連続で発送前レンズエラー。<b>個体リスクが高く仕入対象から除外</b>してよい</li>
+    </ul>
+  </section>
+
+  <!-- 運用ルール -->
+  <section class="sec">
+    <div class="eyebrow">運用ルール</div>
+    <h2>仕入時に必ず守ること</h2>
+    <ul class="plain">
+      <li><b>仕入下限 ¥15,000</b>（例外は付属品・セットの一部のみ）</li>
+      <li><b>原産国を確認</b>。中国製は関税を織り込んで採算計算（発送タブの関税ガードで自動表示）</li>
+      <li><b>相場トレンドを織り込む</b>。EFレンズなど下落中のものは、過去の高値でなく<b>直近相場を上限</b>に</li>
+      <li><b>誤認されやすい商品</b>（SAマウント等）は広告に出さない・タイトルに指名検索語を入れる</li>
+      <li><b>滞留在庫 ¥147万</b>（180日以上）は、値下げしてでも現金化。粗利を削っても資金が年7回転すれば取り返せる</li>
+    </ul>
+    <div class="callout"><p><b>チェックする数字は3つだけ：</b>① 資本効率（粗利率×回転）② 平均在庫日数 ③ 手元現金。この3つが良くなっていれば、仕入は正しい方向に進んでいる。</p></div>
+  </section>
+
+  <!-- まとめ -->
+  <section class="sec" style="background:var(--surface);border:1px solid var(--rule);border-radius:4px;padding:34px 32px;margin-top:36px">
+    <div class="eyebrow">結論</div>
+    <h2>選択と集中で、同じ売上から多くの現金を</h2>
+    <p style="color:var(--ink2)">当社に足りないのは売る力ではなく、<b>仕入の的を絞ること</b>。データは明確に「高単価・高回転・日本製・旧デジタル」を指している。ここに集中し、低単価品と非効率ブランドから静かに撤退する。</p>
+    <p style="color:var(--ink2);margin-bottom:0"><b>攻めの一手は Olympus PEN/OM-D と CCDコンデジの横展開、Sony日本製の拡大。守りの一手は仕入下限の設定と滞留在庫の現金化。</b>この両輪で、資金を止めずに利益率を上げていく。</p>
+  </section>
+
+  <div class="foot">
+    合同会社Nadymade ／ 内部戦略資料。第5期までの全販売履歴（PROFIT PRO 仕入戦略分析）にもとづく。<br>
+    資本効率＝粗利率×年間回転数。粗利にeBay手数料は未反映（実利益はさらに13〜15%低い）。新規カテゴリーの評価は当社データ＋市場動向にもとづく推定を含み、少量テストでの検証を前提とする。<br>
+    数値は分析時点のもの。相場は変動する。
+  </div>
+
+</div>
+</body>
+</html>
