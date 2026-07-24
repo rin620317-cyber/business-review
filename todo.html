@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nadymade 第5期 要対応メモ（TODO・確認事項）</title>
+<style>
+  :root{
+    --bg:#f4f9fb; --card:#ffffff; --card2:#eef7f9; --line:#e0eef1;
+    --text:#244049; --sub:#7c97a0; --accent:#0ea5b7; --accent2:#13bfa6;
+    --warn:#f5a524; --danger:#e2574c; --gold:#d98a2b; --violet:#8b7cf0;
+    --shadow:0 8px 28px rgba(58,140,150,.14);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;
+    background:linear-gradient(165deg,#fafdfe 0%,#eef7fa 55%,#e7f4f6 100%);
+    color:var(--text);min-height:100vh;padding:24px;line-height:1.65}
+  .wrap{max-width:920px;margin:0 auto}
+  header{text-align:center;padding:28px 20px 22px;
+    background:linear-gradient(120deg,#2dd4bf 0%,#22b8d4 50%,#38a8e8 100%);
+    border-radius:22px;margin-bottom:20px;position:relative;overflow:hidden;
+    box-shadow:0 12px 34px rgba(36,160,180,.32)}
+  header::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 82% -30%,rgba(255,255,255,.55),transparent 55%);pointer-events:none}
+  header h1{font-size:1.5rem;color:#fff;text-shadow:0 1px 8px rgba(20,110,125,.3)}
+  header .sub{color:#f0fdff;font-size:.9rem;opacity:.95;margin-top:3px}
+
+  .summary{display:flex;gap:12px;justify-content:center;margin-bottom:20px;flex-wrap:wrap}
+  .chip{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 18px;box-shadow:var(--shadow);font-size:.85rem}
+  .chip b{font-size:1.2rem}
+
+  .sect{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:6px 10px 12px;margin-bottom:18px;box-shadow:var(--shadow)}
+  .sect h2{font-size:1.02rem;padding:14px 8px 6px;display:flex;align-items:center;gap:9px}
+  .badge{font-size:.72rem;font-weight:700;padding:3px 11px;border-radius:999px;color:#fff}
+  .b-you{background:var(--accent)} .b-tax{background:var(--violet)} .b-next{background:var(--warn)} .b-done{background:var(--accent2)}
+
+  ul{list-style:none}
+  li{padding:11px 8px;border-bottom:1px solid #f0f3fa;display:flex;align-items:flex-start;gap:11px;cursor:pointer;user-select:none;border-radius:10px;transition:background .15s}
+  li:last-child{border-bottom:none}
+  li:hover{background:var(--card2)}
+  .chk{width:21px;height:21px;border:2px solid #cfd8ea;border-radius:7px;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;background:#fff;transition:all .15s}
+  li.done .chk{background:var(--accent2);border-color:var(--accent2)}
+  li.done .chk::after{content:"✓"}
+  .body{flex:1}
+  .ttl{font-size:.92rem;font-weight:600}
+  li.done .ttl{color:var(--sub);text-decoration:line-through}
+  .note{display:block;font-size:.78rem;color:var(--sub);margin-top:2px}
+  .when{font-size:.7rem;color:var(--sub);white-space:nowrap;margin-top:2px}
+  .pri{font-size:.68rem;font-weight:700;padding:1px 8px;border-radius:999px;margin-left:6px}
+  .pri.high{background:rgba(226,87,76,.13);color:var(--danger)}
+  .pri.mid{background:rgba(245,165,36,.15);color:#cc8016}
+
+  footer{text-align:center;color:var(--sub);font-size:.78rem;margin-top:22px}
+  .reset{background:#fff;border:1px solid var(--line);color:var(--sub);padding:6px 16px;border-radius:999px;cursor:pointer;font-size:.78rem;margin-top:10px;box-shadow:var(--shadow)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>📝 要対応メモ ｜ 第5期決算</h1>
+    <div class="sub">決算を進める中で出てきた「やること」「確認すること」を貯めていく場所</div>
+  </header>
+
+  <div class="summary">
+    <div class="chip">未対応 <b id="c-open">0</b></div>
+    <div class="chip">完了 <b id="c-done" style="color:var(--accent2)">0</b></div>
+  </div>
+
+  <div class="sect">
+    <h2><span class="badge b-you">あなたがやること</span></h2>
+    <ul data-g="you"></ul>
+  </div>
+
+  <div class="sect">
+    <h2><span class="badge b-tax">小林税理士に確認</span></h2>
+    <ul data-g="tax"></ul>
+  </div>
+
+  <div class="sect">
+    <h2><span class="badge b-next">来期に向けた改善</span></h2>
+    <ul data-g="next"></ul>
+  </div>
+
+  <div class="sect">
+    <h2><span class="badge b-done">確定済み（メモ）</span></h2>
+    <ul data-g="memo"></ul>
+  </div>
+
+  <footer>
+    <div id="stamp"></div>
+    <div>チェックはこのブラウザに保存されます。新しい項目が出たらClaudeが追記します。</div>
+    <button class="reset" onclick="if(confirm('チェックをリセットしますか？')){localStorage.removeItem('nady_todo');location.reload();}">チェックをリセット</button>
+  </footer>
+</div>
+
+<script>
+  // ====== 項目データ：新しい要対応が出たらここに追記 ======
+  const updated = "2026/05/28 (Phase1 未払金経由方式・カード12枚完了)";
+  const items = {
+    you: [
+      { id:"y1", t:"扶養控除等申告書を2名×2年分（令和7・8年）作成し会社保管", n:"源泉税0の根拠書類。税務署提出不要・会社で保管のみ。月8.8万未満で甲欄→源泉0", pri:"mid" },
+      { id:"y2", t:"実地棚卸（2026/4/30時点の在庫を実際に数える）", n:"進捗中：評価額¥4,475,473（507件）。最終確定要", pri:"high" },
+      { id:"y3", t:"★期末未払金 取得待ちCSV 9枚（利用2026/04分）", n:"楽天/ミナピタ/三井住友VISA/Amazon/ゆうPayPay/あきよPayPay/JCB W/JCB Biz/JCB kabu&。引落日2026/05/10〜06/10。推定計上漏れ85万-177万円。「2026/4の利用分未払金リスト教えて」で詳細出せます", pri:"high" },
+      { id:"y4", t:"ヤフオク売上履歴／PayPay残高明細", n:"国内課税売上の核。PayPay残高は期末残高=資産", pri:"high" },
+      { id:"y5", t:"Payoneer 入金明細・Wise（数件）・PayPal（カード完結ならスキップ可）", n:"Payoneerは銀行着金20,950,856と照合。Wiseは数件チェック、PayPalはアカウント残高確認のみで済む可能性", pri:"mid" },
+      { id:"y6", t:"目的別口座（消費税還付）の2026/4/30正確残高を確認", n:"5/21残高1,117,350。期末の正確な額を最終確定時に", pri:"mid" },
+      { id:"y7", t:"マネフォ48,766の二重計上チェック", n:"利用2026/04 eBay C 26-14463-90616。Phase 2a Refundとの突合確認", pri:"mid" },
+    ],
+    tax: [
+      { id:"t1", t:"源泉徴収の過年度分の扱い・給与支払事務所開設届の有無", n:"扶養控除等申告書未提出のままだと乙欄で年約3万円の源泉漏れ。過去分の整理を確認" },
+      { id:"t2", t:"役員報酬（道A：定期同額・未払/役員借入金と相殺）の最終確認", n:"伯悠45,000＋昭代40,000＝月85,000・年1,020,000。議事録7/1付・5月適用" },
+      { id:"t3", t:"消費税の課税方式（本則/簡易）と還付見込みの確認", n:"輸出免税で還付。前期消費税申告書をClaudeが確認予定" },
+      { id:"t4", t:"期末在庫の評価方法の確認", n:"最終仕入原価法など。実地棚卸の結果と合わせて" },
+      { id:"t7", t:"ツクモPC 177,500円の固定資産処理（少額減価償却資産の特例）", n:"Amazonカード2026/?。10万以上30万未満→青色中小の少額特例で即時全額損金可。工具器具備品計上＋別表十六(七)添付。小林先生で処理" },
+      { id:"t5", t:"青色申告取消リスク・6/30期限内申告の最終確認", n:"前期遅延済み。今期を期限内に出せば連続2期を回避＝青色維持" },
+      { id:"t6", t:"会計ソフト最安化：先生に①記帳データの形式(CSV/Excel可否・指定ソフト)②記帳代行の料金③電子取引保存の規程ひな型 を確認", n:"帳簿は紙保存でも合法・認証電子帳簿は任意。必須は電子取引データ保存のみ(無料対応可)。来期からソフト代¥0も射程" },
+    ],
+    next: [
+      { id:"n1", t:"法人名義カードの作成（個人カード混在の解消）", n:"現状は個人名義カードで法人費用を立替。来期から法人カードに集約すると決算が激減" },
+      { id:"n2", t:"個人カードと法人カードの明確な使い分け", n:"完全個人(ファミペイ/イオン/ウェルシア/楽天7349)と法人を物理的に分ける" },
+      { id:"n3", t:"役員報酬の給与振込設定（定期同額の証跡を明確に）", n:"毎月同額を実際に振込むと定期同額給与の証跡が明確になる" },
+    ],
+    memo: [
+      { id:"m5", t:"Phase 1 未払金経由方式・全カード12枚 改修完了（2026-05-28）", n:"利用日→未払金、引落日→代表者借入金or普通預金。法人計上 16,866,795。期末未払金55,565(暫定・9枚追加待ち)。前期準拠の補助科目: メルペイ_りんでぃ/まりん, JCB_1088, NL_6514, 楽天_7113, ミナピタ_4424 等" },
+      { id:"m6", t:"eBay売上仕訳 完了（Phase 2a）3,165行・¥25,493,023", n:"月中平均TTM(三菱UFJ)で円換算。本人見込2,550万にほぼ一致" },
+      { id:"m4", t:"Nadymade会計システム v1 構築済（カード→複式簿記→MF取込CSV）", n:"決算・税務申告フォルダ直下のHTML。来期から月次締めに使用" },
+      { id:"m7", t:"時期基準＝当期から利用日基準に統一（新方針）", n:"前期は請求月＋利用日が同日処理の簡略版。当期から厳密な複式簿記。利用2025/04分は前期計上を確認済(楽天サンプル多数で実証)" },
+      { id:"m2", t:"役員借入金 期末 約3,287,338円のプラス（健全）※未払金経由方式で再検算予定", n:"期首2,890,939＋立替−送金＋報酬。過剰送金なし・役員貸付金問題なし" },
+      { id:"m3", t:"昭代さん＝共同代表・役員（確定）", n:"役員報酬計上の前提クリア" },
+    ],
+  };
+  // ===================================================
+
+  const STORE="nady_todo";
+  let state={}; try{state=JSON.parse(localStorage.getItem(STORE))||{}}catch(e){}
+  let open=0, done=0;
+
+  function priTag(p){ return p==="high"?'<span class="pri high">優先</span>':p==="mid"?'<span class="pri mid">中</span>':''; }
+
+  Object.keys(items).forEach(g=>{
+    const ul=document.querySelector(`ul[data-g="${g}"]`);
+    items[g].forEach(it=>{
+      const li=document.createElement("li");
+      if(state[it.id]) li.classList.add("done");
+      li.innerHTML=`<span class="chk"></span><div class="body"><span class="ttl">${it.t}${priTag(it.pri)}</span>`+
+        (it.n?`<span class="note">${it.n}</span>`:"")+`</div>`;
+      li.addEventListener("click",()=>{
+        if(state[it.id])delete state[it.id]; else state[it.id]=true;
+        localStorage.setItem(STORE,JSON.stringify(state));
+        li.classList.toggle("done"); recount();
+      });
+      ul.appendChild(li);
+      if(g!=="memo"){ if(state[it.id])done++; else open++; }
+    });
+  });
+  function recount(){
+    let o=0,d=0;
+    Object.keys(items).forEach(g=>{ if(g==="memo")return; items[g].forEach(it=>{ if(state[it.id])d++; else o++; }); });
+    document.getElementById("c-open").textContent=o;
+    document.getElementById("c-done").textContent=d;
+  }
+  document.getElementById("c-open").textContent=open;
+  document.getElementById("c-done").textContent=done;
+  document.getElementById("stamp").textContent="最終更新："+updated;
+</script>
+</body>
+</html>
