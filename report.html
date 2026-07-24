@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>合同会社Nadymade 第5期 経営分析レポート</title>
+<style>
+  :root{
+    --bg:#0f1b24; --panel:#16252f; --card:#ffffff; --ink:#1d2e38; --sub:#6b8190;
+    --teal:#0fb9b1; --teal2:#13bfa6; --blue:#2f9be0; --navy:#1e3a4a;
+    --warn:#f5a524; --danger:#ec5b56; --good:#16c2a3; --gold:#d98a2b;
+    --line:#e2edf1;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;background:#eaf2f5;color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
+  .deck{max-width:1080px;margin:0 auto;padding:26px 18px 60px}
+  section{background:var(--card);border-radius:20px;padding:34px 38px;margin-bottom:22px;box-shadow:0 10px 34px rgba(30,58,74,.10);position:relative;overflow:hidden}
+  .kicker{font-size:.78rem;letter-spacing:.18em;color:var(--teal);font-weight:700;text-transform:uppercase;margin-bottom:8px}
+  h2{font-size:1.5rem;margin-bottom:6px;color:var(--navy);letter-spacing:.01em}
+  h3{font-size:1.06rem;color:var(--navy);margin:18px 0 10px}
+  p{color:#33474f}
+  .lead{font-size:1.02rem;color:#3b525c}
+  small{color:var(--sub)}
+  .num{font-variant-numeric:tabular-nums}
+
+  /* 表紙 */
+  .cover{background:linear-gradient(135deg,#0f2a36 0%,#12525a 55%,#0fb9b1 130%);color:#fff;text-align:center;padding:60px 38px}
+  .cover::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 85% -20%,rgba(255,255,255,.18),transparent 55%);pointer-events:none}
+  .cover .kicker{color:#9af0e6}
+  .cover h1{font-size:2.15rem;letter-spacing:.02em;margin:6px 0 8px;text-shadow:0 2px 14px rgba(0,0,0,.25)}
+  .cover .sub{color:#d6f7f2;font-size:1rem}
+  .cover .meta{margin-top:22px;display:inline-flex;gap:10px;flex-wrap:wrap;justify-content:center}
+  .cover .chip{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.32);border-radius:999px;padding:7px 16px;font-size:.85rem;backdrop-filter:blur(4px)}
+
+  /* KPI */
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:18px}
+  .kpi{background:linear-gradient(160deg,#f7fbfc,#eef6f8);border:1px solid var(--line);border-radius:16px;padding:16px 16px}
+  .kpi .l{font-size:.76rem;color:var(--sub);margin-bottom:4px}
+  .kpi .v{font-size:1.5rem;font-weight:800;color:var(--navy);line-height:1.15}
+  .kpi .d{font-size:.74rem;margin-top:5px}
+  .up{color:var(--good);font-weight:700}.down{color:var(--danger);font-weight:700}
+
+  /* サマリー要点 */
+  .points{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:18px}
+  .pt{border-radius:16px;padding:18px;border:1px solid var(--line)}
+  .pt .t{font-weight:800;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+  .pt.red{background:#fdf1f0;border-color:#f6cfcd}.pt.red .t{color:var(--danger)}
+  .pt.amber{background:#fdf7ec;border-color:#f3e0bb}.pt.amber .t{color:var(--gold)}
+  .pt.green{background:#eefaf6;border-color:#bfe9dc}.pt.green .t{color:var(--good)}
+  .pt p{font-size:.9rem}
+
+  /* ウォーターフォール */
+  .wf{margin-top:16px}
+  .wf .row{display:grid;grid-template-columns:150px 1fr 130px;align-items:center;gap:12px;padding:7px 0;border-bottom:1px dashed #e8eef1}
+  .wf .row:last-child{border-bottom:none}
+  .wf .lab{font-size:.86rem;color:#3b525c}
+  .wf .track{height:26px;background:#f1f5f7;border-radius:7px;position:relative;overflow:hidden}
+  .wf .fill{position:absolute;top:0;height:100%;border-radius:7px}
+  .wf .amt{text-align:right;font-weight:700;font-size:.9rem}
+  .pos{background:linear-gradient(90deg,#16c2a3,#3fd6bd)}.neg{background:linear-gradient(90deg,#ec5b56,#f58a86)}
+  .base{background:linear-gradient(90deg,#2f9be0,#67bff0)}.total{background:linear-gradient(90deg,#1e3a4a,#3a6478)}
+
+  /* 横棒(コスト構造) */
+  .bars{margin-top:14px}
+  .bars .b{display:grid;grid-template-columns:130px 1fr 96px;align-items:center;gap:12px;margin:8px 0}
+  .bars .bn{font-size:.84rem;color:#3b525c}
+  .bars .bt{height:22px;background:#f1f5f7;border-radius:6px;overflow:hidden}
+  .bars .bf{height:100%;border-radius:6px;background:linear-gradient(90deg,#0fb9b1,#2f9be0)}
+  .bars .bf.alt{background:linear-gradient(90deg,#f5a524,#f7c46b)}
+  .bars .bv{text-align:right;font-size:.84rem;font-weight:700}
+
+  .callout{margin-top:16px;border-left:5px solid var(--teal);background:#f1fbfa;border-radius:0 12px 12px 0;padding:14px 18px}
+  .callout.warn{border-color:var(--danger);background:#fdf2f1}
+  .callout b{color:var(--navy)}
+
+  /* 提言カード */
+  .recs{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+  .rec{border:1px solid var(--line);border-radius:16px;padding:18px;background:#fbfdfe;position:relative}
+  .rec .pri{position:absolute;top:14px;right:16px;font-size:.7rem;font-weight:800;padding:3px 10px;border-radius:999px}
+  .pri.p1{background:#fde6e4;color:#d83a34}.pri.p2{background:#fdf3df;color:#c4860f}.pri.p3{background:#e6f6f0;color:#0e9b82}
+  .rec h4{color:var(--navy);font-size:1.02rem;margin-bottom:6px;padding-right:64px}
+  .rec ul{margin:8px 0 0 18px;font-size:.88rem;color:#3b525c}
+  .rec li{margin:4px 0}
+  .rec .impact{margin-top:10px;font-size:.8rem;color:var(--teal);font-weight:700}
+
+  /* ロードマップ */
+  .road{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+  .stage{border-radius:16px;padding:18px;border:1px solid var(--line);background:#fbfdfe}
+  .stage .h{font-weight:800;color:var(--navy);margin-bottom:4px}
+  .stage .term{font-size:.74rem;color:var(--teal);font-weight:700;letter-spacing:.05em}
+  .stage ul{margin:8px 0 0 18px;font-size:.86rem;color:#3b525c}
+
+  table.fin{width:100%;border-collapse:collapse;margin-top:14px;font-size:.9rem}
+  table.fin td{padding:8px 6px;border-bottom:1px solid #eef3f5}
+  table.fin td:last-child{text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+  table.fin tr.hi td{background:#f3fbfa;color:var(--navy)}
+
+  .disc{font-size:.76rem;color:var(--sub);margin-top:20px;text-align:center}
+  @media(max-width:780px){.kpis{grid-template-columns:1fr 1fr}.points,.recs,.road{grid-template-columns:1fr}.wf .row{grid-template-columns:110px 1fr 96px}section{padding:24px 20px}.cover h1{font-size:1.7rem}}
+</style>
+</head>
+<body>
+<div class="deck">
+
+  <!-- 表紙 -->
+  <section class="cover">
+    <div class="kicker">Management &amp; Financial Review</div>
+    <h1>合同会社Nadymade 第5期 経営分析レポート</h1>
+    <div class="sub">2025年5月1日 〜 2026年4月30日 ・ eBayヴィンテージカメラ輸出事業</div>
+    <div class="meta">
+      <span class="chip">売上 ¥29.1M（前期比 +46%）</span>
+      <span class="chip">税引前利益 ¥1.12M</span>
+      <span class="chip">課税所得 0（繰越欠損金活用）</span>
+    </div>
+  </section>
+
+  <!-- エグゼクティブサマリー -->
+  <section>
+    <div class="kicker">Executive Summary</div>
+    <h2>3行で言うと</h2>
+    <p class="lead">売上は前期比+46%と急成長。一方で<b>本業の営業損益は赤字</b>で、最終利益は<b>消費税還付と為替差益が支えている</b>構造です。「本業の黒字化」が最重要テーマ。</p>
+    <div class="points">
+      <div class="pt red"><div class="t">⚠ 本業は営業赤字</div><p>営業利益 <b>△204,493円</b>。粗利は出ているが、手数料・送料・広告・返品が粗利を食い切っている。</p></div>
+      <div class="pt amber"><div class="t">📦 返品率が高い</div><p>返品（売上値引）<b>11.3%</b>＝330万円。1ポイント改善で約26万円の利益改善。最大の即効レバー。</p></div>
+      <div class="pt green"><div class="t">💧 還付という強み</div><p>輸出免税モデルで<b>消費税還付 約110万〜170万/年</b>の構造的キャッシュイン。これは継続的な武器。</p></div>
+    </div>
+  </section>
+
+  <!-- KPI -->
+  <section>
+    <div class="kicker">Performance Highlights</div>
+    <h2>業績ハイライト</h2>
+    <div class="kpis">
+      <div class="kpi"><div class="l">売上高</div><div class="v num">¥29.07M</div><div class="d up">前期 ¥19.91M → +46%</div></div>
+      <div class="kpi"><div class="l">売上総利益率</div><div class="v num">36.0%</div><div class="d">純売上 ¥25.78M に対し</div></div>
+      <div class="kpi"><div class="l">営業利益</div><div class="v num down">△0.20M</div><div class="d down">本業は赤字</div></div>
+      <div class="kpi"><div class="l">経常利益</div><div class="v num">¥1.10M</div><div class="d">還付・為替で黒字化</div></div>
+      <div class="kpi"><div class="l">税引前利益</div><div class="v num">¥1.12M</div><div class="d">課税所得は0（欠損金）</div></div>
+      <div class="kpi"><div class="l">繰越欠損金 残</div><div class="v num">¥0.996M</div><div class="d down">枯渇間近（来期注意）</div></div>
+      <div class="kpi"><div class="l">期末在庫</div><div class="v num">¥4.03M</div><div class="d">売上の約14%</div></div>
+      <div class="kpi"><div class="l">流動比率</div><div class="v num">88.8%</div><div class="d down">やや資金繰りタイト</div></div>
+    </div>
+  </section>
+
+  <!-- 損益ウォーターフォール -->
+  <section>
+    <div class="kicker">P/L Structure</div>
+    <h2>売上から利益まで（損益の分解）</h2>
+    <p class="lead">売上29.1Mのうち、返品で3.3M失い、原価16.5M・販管費9.5Mを差し引くと<b>本業は赤字</b>。最終利益は本業の外（還付・為替）で作られています。</p>
+    <div class="wf">
+      <div class="row"><div class="lab">売上高</div><div class="track"><div class="fill base" style="width:100%"></div></div><div class="amt num">29,073,507</div></div>
+      <div class="row"><div class="lab">− 返品/値引</div><div class="track"><div class="fill neg" style="width:11.3%"></div></div><div class="amt num">▲3,293,774</div></div>
+      <div class="row"><div class="lab">純売上</div><div class="track"><div class="fill base" style="width:88.7%"></div></div><div class="amt num">25,779,733</div></div>
+      <div class="row"><div class="lab">− 売上原価</div><div class="track"><div class="fill neg" style="width:56.8%"></div></div><div class="amt num">▲16,504,524</div></div>
+      <div class="row"><div class="lab">売上総利益</div><div class="track"><div class="fill pos" style="width:31.9%"></div></div><div class="amt num">9,275,209</div></div>
+      <div class="row"><div class="lab">− 販管費</div><div class="track"><div class="fill neg" style="width:32.6%"></div></div><div class="amt num">▲9,479,702</div></div>
+      <div class="row"><div class="lab">営業利益</div><div class="track"><div class="fill neg" style="width:2%"></div></div><div class="amt num down">▲204,493</div></div>
+      <div class="row"><div class="lab">＋ 営業外（還付・為替等）</div><div class="track"><div class="fill pos" style="width:4.5%"></div></div><div class="amt num">＋1,299,740</div></div>
+      <div class="row"><div class="lab">税引前当期純利益</div><div class="track"><div class="fill total" style="width:3.9%"></div></div><div class="amt num">1,121,497</div></div>
+    </div>
+    <div class="callout warn"><b>核心：</b>営業利益が赤字（△20万円）＝<b>本業そのものは儲かっていない</b>。利益は「消費税還付」と「為替差益」という本業の外側で生まれています。</div>
+  </section>
+
+  <!-- 利益の源泉分解 -->
+  <section>
+    <div class="kicker">Where Profit Comes From</div>
+    <h2>【最重要】利益はどこから来ているか</h2>
+    <p class="lead">税引前利益1.12Mを源泉別に分解すると、本業はマイナス。<b>消費税還付（構造的・継続）</b>と<b>為替差益（相場依存・変動）</b>が黒字の正体です。</p>
+    <div class="bars">
+      <div class="b"><div class="bn">本業（営業利益）</div><div class="bt"><div class="bf alt" style="width:0%"></div></div><div class="bv down">▲204,493</div></div>
+      <div class="b"><div class="bn">消費税還付</div><div class="bt"><div class="bf" style="width:86%"></div></div><div class="bv">＋1,116,474</div></div>
+      <div class="b"><div class="bn">為替差損益（純）</div><div class="bt"><div class="bf" style="width:12%"></div></div><div class="bv">＋157,695</div></div>
+      <div class="b"><div class="bn">その他（雑収入・前期修正等）</div><div class="bt"><div class="bf" style="width:4%"></div></div><div class="bv">＋51,821</div></div>
+      <div class="b"><div class="bn"><b>税引前利益</b></div><div class="bt"><div class="bf" style="width:87%;background:linear-gradient(90deg,#1e3a4a,#3a6478)"></div></div><div class="bv">1,121,497</div></div>
+    </div>
+    <div class="callout"><b>解釈：</b>消費税還付は「輸出免税×国内仕入課税」の構造から<b>毎期続く強み</b>。為替差益は<b>円安に助けられた一時的要素</b>（円高反転でマイナスになり得る）。<b>＝本業を黒字化できれば、還付がそのまま上乗せ利益になる強い体質に変わります。</b></div>
+  </section>
+
+  <!-- コスト構造 -->
+  <section>
+    <div class="kicker">Cost Structure</div>
+    <h2>粗利を食う3大コスト</h2>
+    <p class="lead">純売上に対する販管費の内訳。<b>eBay手数料＋送料だけで純売上の22.9%</b>。ここに広告と返品が重なり、粗利36%を削り取っています。</p>
+    <div class="bars">
+      <div class="b"><div class="bn">支払手数料(eBay等)</div><div class="bt"><div class="bf" style="width:57%"></div></div><div class="bv">3.39M / 13.1%</div></div>
+      <div class="b"><div class="bn">荷造運賃(送料)</div><div class="bt"><div class="bf" style="width:43%"></div></div><div class="bv">2.52M / 9.8%</div></div>
+      <div class="b"><div class="bn">広告宣伝費</div><div class="bt"><div class="bf" style="width:22%"></div></div><div class="bv">1.32M / 5.1%</div></div>
+      <div class="b"><div class="bn">役員報酬</div><div class="bt"><div class="bf" style="width:17%"></div></div><div class="bv">1.02M / 4.0%</div></div>
+      <div class="b"><div class="bn">研修費(Shopify等)</div><div class="bt"><div class="bf alt" style="width:12%"></div></div><div class="bv">0.70M / 2.7%</div></div>
+      <div class="b"><div class="bn">返品(売上値引)※参考</div><div class="bt"><div class="bf alt" style="width:55%"></div></div><div class="bv">3.29M / 11.3%</div></div>
+    </div>
+    <div class="callout warn"><b>注目：</b>「手数料＋送料＋返品」だけで純売上の<b>約34%（≒8.7M）</b>が消えています。プラットフォーム依存のコスト体質が、本業赤字の主因です。</div>
+  </section>
+
+  <!-- 財務健全性 -->
+  <section>
+    <div class="kicker">Financial Health</div>
+    <h2>財務の健全性</h2>
+    <div class="recs" style="grid-template-columns:1.1fr .9fr">
+      <div>
+        <h3>資金繰りはややタイト</h3>
+        <table class="fin">
+          <tr><td>流動資産</td><td class="num">5,821,159</td></tr>
+          <tr><td>流動負債</td><td class="num">6,556,329</td></tr>
+          <tr class="hi"><td>流動比率</td><td class="num">88.8%</td></tr>
+          <tr><td>現金及び預金</td><td class="num">1,795,474</td></tr>
+          <tr><td>未払金（カード）</td><td class="num">2,793,432</td></tr>
+          <tr><td>買掛金</td><td class="num">2,964,364</td></tr>
+        </table>
+        <p style="margin-top:8px;font-size:.86rem">流動比率が100%を下回り、短期支払>短期資産。カード引落と消費税還付の入金タイミングで資金が逼迫しやすい。</p>
+      </div>
+      <div>
+        <h3>純資産はまだマイナス</h3>
+        <table class="fin">
+          <tr><td>純資産の部</td><td class="num down">△735,170</td></tr>
+          <tr><td>繰越欠損金 残</td><td class="num">995,987</td></tr>
+          <tr class="hi"><td>当期純利益</td><td class="num up">1,121,231</td></tr>
+        </table>
+        <p style="margin-top:8px;font-size:.86rem">創業からの累積損失で純資産はまだマイナス（債務超過気味）。ただし<b>当期黒字で改善中</b>。利益の積み上げで早期に解消したい。</p>
+        <div class="callout" style="margin-top:12px"><b>来期の論点：</b>繰越欠損金が残約100万。来期も黒字なら<b>使い切って法人税が発生</b>するフェーズへ。納税資金の準備を。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 戦略提言 -->
+  <section>
+    <div class="kicker">Strategic Recommendations</div>
+    <h2>5つの打ち手</h2>
+    <div class="recs">
+      <div class="rec"><span class="pri p1">最優先</span><h4>① 返品率11.3%を下げる</h4>
+        <ul>
+          <li>商品説明・写真の精度UP（状態・キズの明示で「思っていたのと違う」返品を削減）</li>
+          <li>梱包強化で輸送破損を防ぐ</li>
+          <li>返品理由を記録・分類し、上位要因から潰す</li>
+        </ul>
+        <div class="impact">▶ 返品率1pt改善 ≒ 約26万円の利益改善</div>
+      </div>
+      <div class="rec"><span class="pri p1">最優先</span><h4>② 手数料・送料の最適化</h4>
+        <ul>
+          <li>eBayストア階層・Promoted ListingsのROIを商品別に検証（広告1.3M＝効いているか）</li>
+          <li>配送はSpeedPAK等で重量・地域別に最安ルート化（送料2.5M）</li>
+          <li>高単価・高粗利商品へシフトし、手数料率の体感を下げる</li>
+        </ul>
+        <div class="impact">▶ 純売上の22.9%を占める領域。数%改善で営業黒字化が射程</div>
+      </div>
+      <div class="rec"><span class="pri p2">中期</span><h4>③ 販路の多角化（Shopify直販）</h4>
+        <ul>
+          <li>研修費で学んだShopify直販は<b>戦略的に正しい</b>（プラットフォーム手数料を圧縮＝粗利改善）</li>
+          <li>eBayで売れ筋の型番をShopify／自社ECへ誘導しリピート化</li>
+          <li>eBay一本足からの脱却でアカウント停止リスクも分散</li>
+        </ul>
+        <div class="impact">▶ 直販比率UPは粗利率を直接押し上げる本丸施策</div>
+      </div>
+      <div class="rec"><span class="pri p2">中期</span><h4>④ 為替リスクの管理</h4>
+        <ul>
+          <li>当期の黒字は為替差益にも依存。<b>円高反転でマイナス化</b>するリスクを認識</li>
+          <li>Payoneer/Wiseの円転タイミングをルール化（レート水準で分割円転等）</li>
+          <li>「為替益はボーナス、本業で稼ぐ」を経営の基本線に</li>
+        </ul>
+        <div class="impact">▶ 利益の振れ幅を抑え、経営判断を本業ベースに</div>
+      </div>
+      <div class="rec"><span class="pri p3">来期</span><h4>⑤ 納税・資金の事前計画</h4>
+        <ul>
+          <li>繰越欠損金が枯渇間近→来期は法人税が発生する前提で資金確保</li>
+          <li>役員報酬の水準を「所得税×社保×法人税」最適点で再設計</li>
+          <li>30万円未満の少額減価償却特例・必要経費の計上漏れ防止</li>
+        </ul>
+        <div class="impact">▶ 黒字定着フェーズの「手取り最大化」設計</div>
+      </div>
+      <div class="rec"><span class="pri p3">体制</span><h4>⑥ 資金繰りの見える化</h4>
+        <ul>
+          <li>カード引落・消費税還付の入金を月次キャッシュフロー表で管理</li>
+          <li>流動比率100%超を当面の財務目標に</li>
+          <li>仕入の支払サイトと売上入金サイトのギャップを把握</li>
+        </ul>
+        <div class="impact">▶ 「黒字倒産」を避け、成長投資の余力を作る</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ロードマップ -->
+  <section>
+    <div class="kicker">Action Roadmap</div>
+    <h2>実行ロードマップ</h2>
+    <div class="road">
+      <div class="stage"><div class="term">〜90日（即効）</div><div class="h">本業の出血を止める</div>
+        <ul><li>返品理由TOP3を特定し対策</li><li>商品説明・梱包の標準化</li><li>Promoted ListingsのROI棚卸し</li><li>赤字商品の出品停止</li></ul></div>
+      <div class="stage"><div class="term">半年（構造改善）</div><div class="h">利益の出る仕組みに</div>
+        <ul><li>配送ルートの最安化</li><li>高粗利カテゴリへ仕入シフト</li><li>Shopify直販の立ち上げ</li><li>月次キャッシュフロー管理開始</li></ul></div>
+      <div class="stage"><div class="term">1年（成長基盤）</div><div class="h">脱・プラットフォーム依存</div>
+        <ul><li>直販比率を計画的に拡大</li><li>純資産プラス化（債務超過解消）</li><li>納税を見込んだ役員報酬設計</li><li>為替円転ルールの定着</li></ul></div>
+    </div>
+  </section>
+
+  <!-- まとめ -->
+  <section style="background:linear-gradient(135deg,#10333f,#0fb9b1)">
+    <div class="kicker" style="color:#9af0e6">Conclusion</div>
+    <h2 style="color:#fff">結論</h2>
+    <p class="lead" style="color:#eafbf8;font-size:1.06rem">売上+46%の成長力と、輸出免税による<b style="color:#fff">消費税還付という構造的な強み</b>を持つ一方、<b style="color:#fff">本業（営業損益）は赤字</b>。当期の黒字は還付と為替に支えられています。</p>
+    <p style="color:#d6f7f2;margin-top:12px">最大の経営課題は<b style="color:#fff">「本業の営業黒字化」</b>。鍵は<b style="color:#fff">①返品削減 ②手数料・送料の最適化 ③直販シフト</b>の3点。本業が黒字に転じれば、毎期の消費税還付がそのまま積み上がり、<b style="color:#fff">一気に筋肉質な高収益体質</b>へ転換できます。成長の踊り場を、収益化の転換点に。</p>
+  </section>
+
+  <div class="disc">本資料は第5期決算データ（MFクラウド・全仕訳集計）に基づく内部分析です。税務上の最終判断は税理士確認事項に従います。作成: Claude（経営・財務分析サポート）</div>
+
+</div>
+</body>
+</html>
